@@ -126,9 +126,10 @@ class _LoginPageState extends State<LoginPage> {
                 color: Color.fromRGBO(237, 246, 255, 1),
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
-                      height: 10,
+                    Expanded(
+                      child: Wrap(),
                     ),
+
                     Text(
                       "Get Started",
                       style: TextStyle(
@@ -136,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color.fromRGBO(235, 158, 26, 1),
                       ),
                     ),
+                    
                     SizedBox(
                       height: 6,
                     ),
@@ -172,6 +174,9 @@ class _LoginPageState extends State<LoginPage> {
                             )),
                       ),
                       height: 45,
+                    ),
+                    Expanded(
+                      child: Wrap(),
                     ),
                   ],
                 ),
