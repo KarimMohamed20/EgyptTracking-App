@@ -1,20 +1,25 @@
-import 'package:adhara_socket_io/adhara_socket_io.dart';
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 class DriverConnectRide {
-  connect(String rideId, String token) async {
-    SocketIOManager manager = SocketIOManager();
-    SocketIO socket = await manager.createInstance(SocketOptions(
-      //Socket IO server URI
-      'ws://192.168.1.2:3000/ride', //?token,=$token&rideId=$rideId',
-      //Query params - can be used for authentication
-      path: '/socket.io',
-      query: {"token": token, "rideId": rideId},
-      //  Enable or disable platform channel logging
-      enableLogging: true,
-    ));
-    await socket.connect();
-    socket.on(rideId, (data) {
-      print(data);
+
+
+  IO.Socket driverConnection({String rideId,}) {
+    var driverToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY4MjRhNjVhOWIzYTliNmVmZDdmYTNmIn0sImlhdCI6MTYwMjU1OTY1OCwiZXhwIjoxNjM0MDk1NjU4fQ.EY2od4e2dQgog0nJqmWxkQIObDRV2rrnXU4etWYTAiU';
+    var socket = IO.io('ws://localhost:3000/ride', <String, dynamic>{
+      'path': '/socket.io',
+      'transports': ['websocket'],
+      'query': 'rideId=$rideId&token=$driverToken'
     });
+
+    socket.connect();
+
+
+    socket.on('connect', (data) => print('Connected as a Driver!'));
+    socket.on(
+      'disconnect',
+      (_) => print('disconnect'),
+    );
+
+    return socket;
   }
 }
