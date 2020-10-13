@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Image.asset(
                       "assets/images/splash_logo.png",
                       scale: 1.5,
+                      
                     ),
                   ),
                   SizedBox(
@@ -79,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: selectedType == "Student"
                             ? Color.fromRGBO(233, 66, 74, 1)
                             : Color.fromRGBO(27, 114, 194, 1),
-                        width: MediaQuery.of(context).size.width / 4,
+                        width: MediaQuery.of(context).size.width / 2,
                       ),
                     ),
                   ),
@@ -110,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: selectedType == "Driver"
                           ? Color.fromRGBO(233, 66, 74, 1)
                           : Color.fromRGBO(27, 114, 194, 1),
-                      width: MediaQuery.of(context).size.width / 4,
+                      width: MediaQuery.of(context).size.width / 2,
                     ),
                   ),
                 ],
@@ -198,10 +199,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   height: 40,
-                  width: MediaQuery.of(context).size.width / 4,
+                  width: MediaQuery.of(context).size.width / 2.5,
                   child: Center(
                       child: Text(
-                    "AppLocalizations.of(context).translate('forgetPassword')",
+                    "Forgot Password",
                     style: TextStyle(
                         fontSize: 14.5,
                         fontWeight: FontWeight.bold,

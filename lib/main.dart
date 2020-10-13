@@ -1,4 +1,6 @@
+import 'package:app/View/Auth/login.dart';
 import 'package:flutter/material.dart';
+import 'View/Auth/login.dart';
 void main() {
   runApp(MyApp());
 }
@@ -8,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
-      home: Home(),
+      routes: {"/": (context) => LoginPage()},
     );
   }
 }
