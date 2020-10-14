@@ -29,6 +29,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   socket_io_client:
+  http:
+  shared_preferences:
   get: ^3.13.2
 
 dev_dependencies:

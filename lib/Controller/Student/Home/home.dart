@@ -1,0 +1,40 @@
+import 'package:app/Controller/Auth/login.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+
+class StudentHome extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<StudentHome> {
+  final LoginController _loginController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: Get.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Obx(() => Text(_loginController.student.value.email)),
+            RaisedButton(
+              onPressed: () {
+                _loginController.student.value.user = {
+                  "email": "spam@dplyr.dev"
+                };
+
+                _loginController.student.refresh();
+                print(_loginController.student.value.email);
+              },
+              child: Text("Update Email"),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
