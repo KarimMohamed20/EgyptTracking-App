@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-class StudentHome extends StatefulWidget {
+class DriverHome extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<StudentHome> {
+class _HomePageState extends State<DriverHome> {
   final LoginController _loginController = Get.find();
 
   @override

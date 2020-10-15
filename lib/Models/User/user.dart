@@ -1,7 +1,7 @@
-class StudentModel {
+class UserModel {
   Map user;
-  StudentModel({this.user});
-
+  String token;
+  UserModel({this.user,this.token});
   String get id => user['id'];
   String get fullName => user['fullName'];
   String get email => user['email'];
