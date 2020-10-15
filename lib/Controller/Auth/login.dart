@@ -74,7 +74,8 @@ class LoginController extends GetxController {
       var prefs = await SharedPreferences.getInstance();
 
       // Save credentials
-      await prefs.setString('user', jsonEncode(user.value));
+      await prefs.setString('user', jsonEncode(user.value.user));
+      await prefs.setString('token', jsonEncode(user.value.token));
 
 
       // Navigate to home

@@ -1,4 +1,5 @@
 import 'package:app/Controller/Auth/login.dart';
+import 'package:app/Models/User/userController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -9,7 +10,7 @@ class DriverHome extends StatefulWidget {
 }
 
 class _HomePageState extends State<DriverHome> {
-  final LoginController _loginController = Get.find();
+  UserController _loginController = Get.find();
 
   @override
   Widget build(BuildContext context) {

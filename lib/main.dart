@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'View/Auth/login.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var userController = Get.put(UserController());
+  await userController.addData();
   runApp(MyApp());
 }
 
@@ -16,13 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var userController = Get.put(UserController());
-  @override
-  void initState() {
-    super.initState();
-    userController.addData();
-  }
-
+  UserController userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -30,7 +27,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "/": (context) => LoginPage(),
         "/student/home": (context) => StudentHome(),
-        "/student/driver": (context) => DriverHome(),
+        "/driver/home": (context) => DriverHome(),
       },
     );
   }
