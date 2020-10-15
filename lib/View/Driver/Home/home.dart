@@ -1,3 +1,4 @@
+import 'package:app/Components/Driver/drawer.dart';
 import 'package:app/Controller/Auth/login.dart';
 import 'package:app/Models/User/userController.dart';
 import 'package:flutter/material.dart';
@@ -10,30 +11,22 @@ class DriverHome extends StatefulWidget {
 }
 
 class _HomePageState extends State<DriverHome> {
-  UserController _loginController = Get.find();
+  UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async => false,
-          child: Scaffold(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(title: Obx(()=> Text(_userController.user.value.user == null ? '' : _userController.user.value.fullName)),),
+        drawer: DriverDrawer(),
         body: Container(
           width: Get.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Obx(() => Text(_loginController.user.value.email)),
-              RaisedButton(
-                onPressed: () {
-                  _loginController.user.value.user = {
-                    "email": "spam@dplyr.dev"
-                  };
-                  _loginController.user.refresh();
-                  print(_loginController.user.value.email);
-                },
-                child: Text("Update Email"),
-              )
+              Obx(() => Text(_userController.user.value.user == null ? '' : _userController.user.value.email)),
             ],
           ),
         ),

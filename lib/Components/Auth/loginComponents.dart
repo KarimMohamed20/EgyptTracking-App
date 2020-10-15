@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class LoginComponents {
-  final LoginController _loginController = Get.put(LoginController());
+  LoginController _loginController = Get.put(LoginController());
   var selectedType = 'Student'.obs;
   headerLogo() {
     return Container(
@@ -46,7 +46,19 @@ class LoginComponents {
           // Student
           _userType(image: 'login_student', name: 'Student'),
           //   Driver
-          _userType(image: 'login_driver', name: "Driver")
+          _userType(image: 'login_driver', name: "Driver"),
+
+          InkWell(child: _userType(
+              image: Icon(
+                Icons.navigate_next,
+                size: 30,
+                color: Colors.white,
+              ),
+              name: "Register",
+              disableOnTap: true),
+              onTap: (){
+                Get.toNamed('/register');
+              },)
         ],
       ),
     );
@@ -72,9 +84,15 @@ class LoginComponents {
             SizedBox(
               height: 6,
             ),
-            _loginInput(hint: "Email", icon: Icons.email, controller: _loginController.emailTextController),
             _loginInput(
-                hint: 'Password', icon: Icons.lock, obscure: true, controller: _loginController.passwordTextController),
+                hint: "Email",
+                icon: Icons.email,
+                controller: _loginController.emailTextController),
+            _loginInput(
+                hint: 'Password',
+                icon: Icons.lock,
+                obscure: true,
+                controller: _loginController.passwordTextController),
             Expanded(
               child: Wrap(),
             ),
@@ -84,13 +102,15 @@ class LoginComponents {
     );
   }
 
-  _userType({image, name}) {
+  _userType({image, name, disableOnTap = false}) {
     return Expanded(
       child: InkWell(
           onTap: () {
-            if (selectedType.value != name) {
-              selectedType.value = name;
-              selectedType.refresh();
+            if (disableOnTap == false) {
+              if (selectedType.value != name) {
+                selectedType.value = name;
+                selectedType.refresh();
+              }
             }
           },
           child: Obx(
@@ -100,8 +120,10 @@ class LoginComponents {
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 5.5),
-                      Image.asset("assets/images/$image.png",
-                          width: 30, height: 30, color: Colors.white),
+                      image.runtimeType != String
+                          ? image
+                          : Image.asset("assets/images/$image.png",
+                              width: 30, height: 30, color: Colors.white),
                       SizedBox(height: 5),
                       Text(name,
                           style: TextStyle(
@@ -121,7 +143,10 @@ class LoginComponents {
   }
 
   _loginInput(
-      {String hint, IconData icon, TextEditingController controller,bool obscure = false}) {
+      {String hint,
+      IconData icon,
+      TextEditingController controller,
+      bool obscure = false}) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -129,7 +154,6 @@ class LoginComponents {
             color: Color.fromRGBO(237, 246, 255, 1),
           )),
       child: TextFormField(
-
         obscureText: obscure,
         controller: controller,
         decoration: InputDecoration(

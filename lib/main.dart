@@ -1,10 +1,11 @@
-import 'package:app/Controller/Driver/Home/home.dart';
-import 'package:app/Controller/Student/Home/home.dart';
 import 'package:app/Models/User/userController.dart';
 import 'package:app/View/Auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'View/Auth/login.dart';
+import 'View/Auth/register.dart';
+import 'View/Driver/Home/home.dart';
+import 'View/Student/Home/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: _getInitialRoute(),
       routes: {
         "/": (context) => LoginPage(),
+        "/register": (context) => RegisterPage(),
         "/student/home": (context) => StudentHome(),
         "/driver/home": (context) => DriverHome(),
       },

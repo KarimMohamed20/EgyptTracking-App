@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:app/Controller/API/apiServices.dart';
 import 'package:app/Controller/API/config.dart';
-import 'package:app/Controller/Driver/Home/home.dart';
-import 'package:app/Controller/Student/Home/home.dart';
-import 'package:app/Models/User/user.dart';
+import 'package:app/Models/User/userController.dart';
+import 'package:app/View/Driver/Home/home.dart';
+import 'package:app/View/Student/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   APIServices controller = APIServices();
-  Rx<UserModel> user = UserModel().obs;
+  UserController user = Get.find();
   TextEditingController emailTextController;
   TextEditingController passwordTextController;
 
@@ -45,8 +44,10 @@ class LoginController extends GetxController {
     _handleResponse(res);
   }
 
-  _handleResponse(Response res) async {
 
+
+
+  _handleResponse(Response res) async {
     // Invalid User Credentials
     if (res.statusCode == 400) {
       Get.back();
@@ -68,20 +69,23 @@ class LoginController extends GetxController {
         message: 'Please try again later..',
       ));
     }
+
+    // Successful Login
     if (res.statusCode == 200) {
-      user.value.user = jsonDecode(res.body)['user'];
-      user.value.token = jsonDecode(res.body)['token'];
+
+      user.user.value.user = jsonDecode(res.body)['user'];
+      user.user.value.token = jsonDecode(res.body)['token'];
       var prefs = await SharedPreferences.getInstance();
 
+      user.user.refresh();
       // Save credentials
-      await prefs.setString('user', jsonEncode(user.value.user));
-      await prefs.setString('token', jsonEncode(user.value.token));
-
+      await prefs.setString('user', jsonEncode(user.user.value.user));
+      await prefs.setString('token', jsonEncode(user.user.value.token));
 
       // Navigate to home
-      if (user.value.accountType == 'Student') {
+      if (user.user.value.accountType == 'Student') {
         Get.offAll(StudentHome());
-      } else if (user.value.accountType == "Driver") {
+      } else if (user.user.value.accountType == "Driver") {
         Get.offAll(DriverHome());
       }
     }
