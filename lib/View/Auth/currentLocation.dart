@@ -11,7 +11,7 @@ class CurrentLocation extends StatefulWidget {
 
 class _CurrentLocationState extends State<CurrentLocation> {
   RegisterController _registerController = Get.find();
-  Set markers = {};
+  Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
   // Change Marker Location when camera moves
@@ -32,6 +32,7 @@ class _CurrentLocationState extends State<CurrentLocation> {
     // Get current location
     Position position =
         await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
     // Set controller
     googleMapController = controller;
     setState(() {});
@@ -55,11 +56,6 @@ class _CurrentLocationState extends State<CurrentLocation> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     googleMapController.dispose();
@@ -73,7 +69,10 @@ class _CurrentLocationState extends State<CurrentLocation> {
         title: Text("My Location"),
       ),
       body: Container(
+        height: Get.height,
+        width: Get.width,
         child: Stack(
+          alignment: Alignment.bottomCenter,
           children: [
             GoogleMap(
               initialCameraPosition:
@@ -83,6 +82,27 @@ class _CurrentLocationState extends State<CurrentLocation> {
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
               onMapCreated: onMapCreated,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Container(
+                height: 70,
+                child: RaisedButton(
+                    color: Color.fromRGBO(27, 114, 194, 1),
+                    child: Center(
+                        child: Text(
+                      "Save Location",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
+                    )),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    onPressed: () {
+                      Get.back();
+                    }),
+              ),
             )
           ],
         ),

@@ -61,15 +61,15 @@ class RegisterComponents {
                 hint: "Email",
                 icon: Icons.email,
                 controller: _registerController.emailTextController),
-            _locationField(
+            Obx(()=>_locationField(
                 hint: "Location",
                 icon: Icons.location_pin,
                 controller: TextEditingController(
-                    text: _registerController.currentLocation.value.latitude
+                    text: _registerController.currentLocation.value.latitude.roundToDouble()
                             .toString() +
                         ", " +
-                        _registerController.currentLocation.value.longitude
-                            .toString())),
+                        _registerController.currentLocation.value.longitude.roundToDouble()
+                            .toString())),),
             _registerField(
                 hint: 'Password',
                 icon: Icons.lock,
@@ -128,7 +128,7 @@ class RegisterComponents {
         obscureText: obscure,
         controller: controller,
         onTap: (){
-          
+          Get.toNamed('/register/location');
         },
         decoration: InputDecoration(
             hintText: hint,
@@ -147,7 +147,7 @@ class RegisterComponents {
       children: [
         InkWell(
           onTap: () {
-            _registerController.login();
+            _registerController.register();
           },
           child: Container(
             height: 50,
@@ -163,10 +163,7 @@ class RegisterComponents {
             alignment: Alignment.bottomCenter,
           ),
         ),
-        Container(
-          color: Color.fromRGBO(235, 158, 26, 1),
-          height: 20,
-        )
+
       ],
     );
   }

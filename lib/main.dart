@@ -1,4 +1,5 @@
 import 'package:app/Models/User/userController.dart';
+import 'package:app/View/Auth/currentLocation.dart';
 import 'package:app/View/Auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "/": (context) => LoginPage(),
         "/register": (context) => RegisterPage(),
+        "/register/location": (context) => CurrentLocation(),
         "/student/home": (context) => StudentHome(),
         "/driver/home": (context) => DriverHome(),
       },

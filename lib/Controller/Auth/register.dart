@@ -31,40 +31,55 @@ class RegisterController extends GetxController {
 
   @override
   void onClose() {
+    fullNameTextController?.dispose();
     emailTextController?.dispose();
     passwordTextController?.dispose();
+    confirmPasswordTextController?.dispose();
     super.onClose();
   }
 
-  login() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
-        barrierDismissible: false);
+  register() async {
+    // Get.dialog(Center(child: CircularProgressIndicator()),
+    //     barrierDismissible: false);
 
-    Response res = await controller.post(APIConfig.login, body: {
-      "email": emailTextController.text,
-      "password": passwordTextController.text
-    }).catchError((e) {
-      Get.back();
-    });
-
-    _handleResponse(res);
+    if (confirmPasswordTextController.value.text ==
+        passwordTextController.value.text) {
+      Response res = await controller.post(APIConfig.register, body: {
+        "fullName": fullNameTextController.text,
+        "email": emailTextController.text,
+        "password": passwordTextController.text,
+        "lat": currentLocation.value.latitude.toString(),
+        "lng": currentLocation.value.longitude.toString(),
+        "accountType": "Student"
+      }).catchError((e) {
+        Get.back();
+      });
+      _handleResponse(res);
+    } else {
+    //    Get.back();
+      Get.showSnackbar(GetBar(
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+        title: 'Please confirm your password',
+        message: 'Please match your password with confirm password',
+      ));
+    }
   }
 
   _handleResponse(Response res) async {
     // Invalid User Credentials
     if (res.statusCode == 400) {
-      Get.back();
+    //  Get.back();
       Get.showSnackbar(GetBar(
         snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: 3),
-        title: 'Invalid Email or Password',
+        title: 'Enter a correct email',
         message: 'Please enter a correct email and password',
       ));
     }
-
     // Internal Server Error
     if (res.statusCode == 500) {
-      Get.back();
+    //  Get.back();
       Get.showSnackbar(GetBar(
         snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: 3),
