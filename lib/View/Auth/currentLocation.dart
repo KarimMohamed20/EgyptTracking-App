@@ -14,9 +14,17 @@ class _CurrentLocationState extends State<CurrentLocation> {
 
   Set markers = {};
   GoogleMapController googleMapController;
-
+  
+  // Change Marker Location when camera moves
   onCameraMove(CameraPosition position) {
+    markers = {
+      Marker(
+        markerId: MarkerId('myLocation'),
+        position: position.target,
+      )
+    };
   }
+
   @override
   void initState() {
     super.initState();
@@ -36,7 +44,6 @@ class _CurrentLocationState extends State<CurrentLocation> {
               initialCameraPosition:
                   CameraPosition(target: LatLng(23.8859, 45.0792)),
               markers: markers,
-
               onCameraMove: onCameraMove,
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
