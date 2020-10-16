@@ -39,8 +39,8 @@ class RegisterController extends GetxController {
   }
 
   register() async {
-    // Get.dialog(Center(child: CircularProgressIndicator()),
-    //     barrierDismissible: false);
+    Get.dialog(Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
 
     if (confirmPasswordTextController.value.text ==
         passwordTextController.value.text) {
@@ -56,7 +56,7 @@ class RegisterController extends GetxController {
       });
       _handleResponse(res);
     } else {
-    //    Get.back();
+       Get.back();
       Get.showSnackbar(GetBar(
         snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: 3),
@@ -69,7 +69,7 @@ class RegisterController extends GetxController {
   _handleResponse(Response res) async {
     // Invalid User Credentials
     if (res.statusCode == 400) {
-    //  Get.back();
+     Get.back();
       Get.showSnackbar(GetBar(
         snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: 3),
@@ -79,7 +79,7 @@ class RegisterController extends GetxController {
     }
     // Internal Server Error
     if (res.statusCode == 500) {
-    //  Get.back();
+     Get.back();
       Get.showSnackbar(GetBar(
         snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: 3),
