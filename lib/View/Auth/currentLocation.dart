@@ -22,10 +22,37 @@ class _CurrentLocationState extends State<CurrentLocation> {
         position: position.target,
       )
     };
+    setState(() {});
+    _registerController.currentLocation.value = position.target;
+    _registerController.currentLocation.refresh();
   }
 
+  // Update Map Location to Current User Location
+  onMapCreated(GoogleMapController controller) async {
+    // Get current location
+    Position position =
+        await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    // Set controller
+    googleMapController = controller;
+    setState(() {});
 
+    // Move Camera to current location
+    controller.moveCamera(CameraUpdate.newLatLngZoom(
+        LatLng(position.latitude, position.longitude), 14));
 
+    // Set Marker on current location
+    markers = {
+      Marker(
+        markerId: MarkerId('myLocation'),
+        position: LatLng(position.latitude, position.longitude),
+      )
+    };
+    setState(() {});
+    // Update register value
+    _registerController.currentLocation.value =
+        LatLng(position.latitude, position.longitude);
+    _registerController.currentLocation.refresh();
+  }
 
   @override
   void initState() {
@@ -52,13 +79,10 @@ class _CurrentLocationState extends State<CurrentLocation> {
               initialCameraPosition:
                   CameraPosition(target: LatLng(23.8859, 45.0792)),
               markers: markers,
-              
               onCameraMove: onCameraMove,
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
-              onMapCreated: (controller) {
-                googleMapController = controller;
-              },
+              onMapCreated: onMapCreated,
             )
           ],
         ),
