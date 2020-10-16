@@ -11,10 +11,9 @@ class CurrentLocation extends StatefulWidget {
 
 class _CurrentLocationState extends State<CurrentLocation> {
   RegisterController _registerController = Get.find();
-
   Set markers = {};
   GoogleMapController googleMapController;
-  
+
   // Change Marker Location when camera moves
   onCameraMove(CameraPosition position) {
     markers = {
@@ -25,9 +24,18 @@ class _CurrentLocationState extends State<CurrentLocation> {
     };
   }
 
+
+
+
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    googleMapController.dispose();
   }
 
   @override
@@ -44,6 +52,7 @@ class _CurrentLocationState extends State<CurrentLocation> {
               initialCameraPosition:
                   CameraPosition(target: LatLng(23.8859, 45.0792)),
               markers: markers,
+              
               onCameraMove: onCameraMove,
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
