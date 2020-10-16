@@ -48,17 +48,16 @@ class LoginComponents {
           //   Driver
           _userType(image: 'login_driver', name: "Driver"),
 
-          InkWell(child: _userType(
+          _userType(
               image: Icon(
                 Icons.navigate_next,
                 size: 30,
                 color: Colors.white,
               ),
               name: "Register",
-              disableOnTap: true),
-              onTap: (){
+              disableOnTap: (){
                 Get.toNamed('/register');
-              },)
+              })
         ],
       ),
     );
@@ -102,15 +101,17 @@ class LoginComponents {
     );
   }
 
-  _userType({image, name, disableOnTap = false}) {
+  _userType({image, name, disableOnTap}) {
     return Expanded(
       child: InkWell(
           onTap: () {
-            if (disableOnTap == false) {
+            if (disableOnTap == null) {
               if (selectedType.value != name) {
                 selectedType.value = name;
                 selectedType.refresh();
               }
+            } else {
+              disableOnTap();
             }
           },
           child: Obx(
@@ -177,7 +178,7 @@ class LoginComponents {
               _loginController.login();
             },
             child: Container(
-              height: 40,
+              height: 50,
               child: Center(
                   child: Text(
                 "Login",
@@ -192,7 +193,7 @@ class LoginComponents {
           ),
         ),
         Container(
-          height: 40,
+          height: 50,
           width: Get.width / 2.5,
           child: Center(
               child: Text(
