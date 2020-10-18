@@ -42,6 +42,12 @@ class DriverCreateRideController extends GetxController {
         "started": started
       }).catchError((e) {
         Get.back();
+        Get.showSnackbar(GetBar(
+        duration: Duration(seconds: 3),
+        title: 'Currently there is an error',
+        message:
+            "Please try again later..",
+      ));
       });
       Get.back();
       Get.back();
