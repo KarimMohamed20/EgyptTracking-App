@@ -1,3 +1,4 @@
+import 'package:app/Components/Driver/Ride/create.dart';
 import 'package:flutter/material.dart';
 
 class CreateDriverRide extends StatefulWidget {
@@ -13,9 +14,11 @@ class _CreateDriverRideState extends State<CreateDriverRide> {
         title: Text("Create Ride"),
       ),
       body: Container(
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            
+            RideCreateComponents().logo(),
+            RideCreateComponents().()
           ],
         ),
       ),

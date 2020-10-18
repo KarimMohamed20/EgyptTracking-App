@@ -24,9 +24,14 @@ class _DriverRidesState extends State<DriverRides> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(child: Icon(Icons.add)),
+          InkWell(
+            onTap: () {
+              Get.toNamed('/driver/rides/create');
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: Icon(Icons.add)),
+            ),
           )
         ],
         title: Text("Rides"),
@@ -41,16 +46,17 @@ class _DriverRidesState extends State<DriverRides> {
             child: Text('Currently you don\'t have rides.'),
           );
         } else {
-          return ListView.builder(itemCount: _getRides.rides.length,
-            itemBuilder: (context, i) {
-            RideModel ride = RideModel(ride:_getRides.rides.value[i]);
-            return RideTile(
-              helperName: ride.helperName,
-              live: ride.started,
-              rideId: ride.id,
-              rideName: ride.rideName,
-            );
-          });
+          return ListView.builder(
+              itemCount: _getRides.rides.length,
+              itemBuilder: (context, i) {
+                RideModel ride = RideModel(ride: _getRides.rides.value[i]);
+                return RideTile(
+                  helperName: ride.helperName,
+                  live: ride.started,
+                  rideId: ride.id,
+                  rideName: ride.rideName,
+                );
+              });
         }
       }),
     );
