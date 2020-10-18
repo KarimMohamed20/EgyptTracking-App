@@ -13,7 +13,7 @@ class UserController extends GetxController {
     var tokenString = _prefs.get("token");
     if (userString != null) {
       user.value = UserModel(user: jsonDecode(userString));
-      user.value.token = tokenString;
+      user.value.token = tokenString.replaceAll('"', '');
       user.refresh();
       print(user.value.token);
 

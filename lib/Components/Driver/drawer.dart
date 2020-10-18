@@ -20,6 +20,11 @@ class DriverDrawer extends StatelessWidget {
           Divider(
             color: Colors.grey[500],
           ),
+          _tile(
+              icon: Icons.message, text: "Rides", route: '/driver/rides'),
+          Divider(
+            color: Colors.grey[500],
+          ),
           // Third Part
           _tile(
               icon: Icons.notifications,
