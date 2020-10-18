@@ -1,3 +1,5 @@
+import 'package:app/Models/Driver/rideDriver.dart';
+
 class RideModel {
   final Map ride;
   RideModel({this.ride});
@@ -5,8 +7,8 @@ class RideModel {
   String get id => ride['id'];
   String get rideName => ride['rideName'];
   List<String> get students => ride['students'];
-  List<> get studentsObjects => ride['studentsObjects'];
-  Map get driver => ride['driver'];
+  List get studentsObjects => ride['studentsObjects'];
+  RideDriverModel get driver => RideDriverModel(driver: ride['driver']);
   bool get started => ride['started'];
   String get createdAt => ride['createdAt'];
   String get updatedAt => ride['updatedAt'];
