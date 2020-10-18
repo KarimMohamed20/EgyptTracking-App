@@ -28,17 +28,23 @@ class DriverCreateRideController extends GetxController {
   createRide() async {
     if (rideName.text.length < 2 || helperName.text.length < 2) {
       Get.showSnackbar(GetBar(
-        title:
-            'Please enter more than 2 characters in ride name and helper name.',
+        duration: Duration(seconds: 3),
+        title: 'Please enter more than 2 characters in names.',
         message:
             "If you have any trouble with creating ride please contact us.",
       ));
     } else {
+      Get.dialog(Center(child: CircularProgressIndicator()),
+          barrierDismissible: false);
       await _apiController.post(APIConfig.createRide, body: {
         "rideName": rideName.text,
         "helperName": helperName.text,
         "started": started
+      }).catchError((e) {
+        Get.back();
       });
+      Get.back();
+      Get.back();
       _driverGetRides.getMyRides();
     }
   }

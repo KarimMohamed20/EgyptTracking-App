@@ -18,7 +18,8 @@ class _CreateDriverRideState extends State<CreateDriverRide> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             RideCreateComponents().logo(),
-            RideCreateComponents().()
+            RideCreateComponents().createForm(),
+            RideCreateComponents().submitButton(),
           ],
         ),
       ),
