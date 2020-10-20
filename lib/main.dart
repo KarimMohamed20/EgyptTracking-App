@@ -4,6 +4,7 @@ import 'package:app/View/Auth/login.dart';
 import 'package:app/View/Driver/Ride/create.dart';
 import 'package:app/View/Driver/Ride/rides.dart';
 import 'package:app/View/Driver/Ride/startRide.dart';
+import 'package:app/View/Driver/Ride/students.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'View/Auth/login.dart';
@@ -39,6 +40,7 @@ class _MyAppState extends State<MyApp> {
         "/driver/rides": (context) => DriverRides(),
         "/driver/rides/create": (context) => CreateDriverRide(),
         "/driver/ride/start": (context) => DriverStartRide(),
+        "/driver/ride/students": (context) => RideStudents(),
       },
     );
   }

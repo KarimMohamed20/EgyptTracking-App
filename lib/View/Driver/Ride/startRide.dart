@@ -27,14 +27,12 @@ class _DriverStartRideState extends State<DriverStartRide> {
     // Move Camera to current location
     controller.moveCamera(CameraUpdate.newLatLngZoom(
         LatLng(position.latitude, position.longitude), 14));
-
     // Set Marker on current location
-    markers = {
-      Marker(
-        markerId: MarkerId('myLocation'),
-        position: LatLng(position.latitude, position.longitude),
-      )
-    };
+    markers.add(Marker(
+      markerId: MarkerId('myLocation'),
+      position: LatLng(position.latitude, position.longitude),
+    ));
+
     setState(() {});
   }
 
@@ -44,7 +42,7 @@ class _DriverStartRideState extends State<DriverStartRide> {
     if (ride.currentRide.value.students.isNotEmpty) {
       markers.addAll(ride.currentRide.value.studentsObjects.map((e) => Marker(
           markerId: MarkerId(e['id']),
-          infoWindow: InfoWindow(title: 'Student', snippet: e['name']),
+          infoWindow: InfoWindow(title: 'Student', snippet: e['fullName']),
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
           position: LatLng(double.parse(e['lat']), double.parse(e['lng'])))));
@@ -61,21 +59,31 @@ class _DriverStartRideState extends State<DriverStartRide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          InkWell(
+            onTap: (){
+              Get.toNamed('/driver/ride/students');
+            },
+                      child: Center(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Students",
+                style: TextStyle(color: Colors.white),
+              ),
+            )),
+          )
+        ],
         title: Text(ride.currentRide.value.rideName),
       ),
       body: Container(
         child: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: LatLng(0.0, 0.0),
-          ),
-          markers: markers,
-          myLocationEnabled: true,
-          onMapCreated: (c) {
-            setState(() {
-              googleMapController = c;
-            });
-          },
-        ),
+            initialCameraPosition: CameraPosition(
+              target: LatLng(0.0, 0.0),
+            ),
+            markers: markers,
+            myLocationEnabled: true,
+            onMapCreated: onMapCreated),
       ),
     );
   }
