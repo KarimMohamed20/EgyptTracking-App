@@ -15,10 +15,17 @@ class APIServices {
     return res;
   }
 
-  Future<http.Response> get(url) async {
-    var res = await http.get(url, headers: {
+  Future<http.Response> put(url, {@required body}) async {
+    var res = await http.put(url, body: jsonEncode(body), headers: {
+      "Content-Type": "application/json",
       "Authorization": _userController.user.value.token
     });
+    return res;
+  }
+
+  Future<http.Response> get(url) async {
+    var res = await http
+        .get(url, headers: {"Authorization": _userController.user.value.token});
 
     return res;
   }
