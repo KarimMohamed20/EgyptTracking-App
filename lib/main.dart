@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         "/driver/home": (context) => DriverHome(),
         "/driver/rides": (context) => DriverRides(),
         "/driver/rides/create": (context) => CreateDriverRide(),
-        "/driver/rides/start": (context) => DriverStartRide(),
+        "/driver/ride/start": (context) => DriverStartRide(),
       },
     );
   }

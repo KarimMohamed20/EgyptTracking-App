@@ -1,4 +1,4 @@
-import 'package:app/Models/Ride/ride.dart';
+import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,7 @@ class DriverStartRide extends StatefulWidget {
 }
 
 class _DriverStartRideState extends State<DriverStartRide> {
-  RideModel ride = Get.find();
+  DriverGetRides ride = Get.find();
   Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
@@ -41,9 +41,9 @@ class _DriverStartRideState extends State<DriverStartRide> {
   @override
   void initState() {
     super.initState();
-    if (ride.students.isNotEmpty) {
-      markers.addAll(ride.studentsObjects.map((e) => Marker(
-          markerId: e['id'],
+    if (ride.currentRide.value.students.isNotEmpty) {
+      markers.addAll(ride.currentRide.value.studentsObjects.map((e) => Marker(
+          markerId: MarkerId(e['id']),
           infoWindow: InfoWindow(title: 'Student', snippet: e['name']),
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
@@ -61,7 +61,7 @@ class _DriverStartRideState extends State<DriverStartRide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ride.rideName),
+        title: Text(ride.currentRide.value.rideName),
       ),
       body: Container(
         child: GoogleMap(

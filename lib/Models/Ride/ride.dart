@@ -7,7 +7,7 @@ class RideModel {
   String get id => ride['id'];
   String get rideName => ride['rideName'];
   String get helperName => ride['helperName'];
-  List<String> get students => ride['students'];
+  List get students => ride['students'];
   List get studentsObjects => ride['studentsObjects'];
   RideDriverModel get driver => RideDriverModel(driver: ride['driver']);
   bool get started => ride['started'];
