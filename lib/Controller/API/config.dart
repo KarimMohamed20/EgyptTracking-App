@@ -4,4 +4,5 @@ class APIConfig {
   static final register = baseUrl + '/register';
   static final driverRides = baseUrl + '/ride/get';
   static final createRide = baseUrl + '/ride/create';
+  static final students = baseUrl + '/students';
 }

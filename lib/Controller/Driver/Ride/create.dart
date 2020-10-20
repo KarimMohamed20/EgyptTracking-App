@@ -51,7 +51,7 @@ class DriverCreateRideController extends GetxController {
       });
       Get.back();
       Get.back();
-      _driverGetRides.getMyRides();
+      _driverGetRides.getMyRides(refresh:true);
     }
   }
 }

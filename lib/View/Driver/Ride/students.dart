@@ -1,6 +1,7 @@
 import 'package:app/Controller/Driver/Ride/get.dart';
+import 'package:app/Models/User/user.dart';
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 class RideStudents extends StatefulWidget {
   @override
@@ -13,6 +14,23 @@ class _RideStudentsState extends State<RideStudents> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          InkWell(
+            onTap: () {
+              Get.toNamed('/students');
+            },
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 25,
+                ),
+              ),
+            ),
+          )
+        ],
         title: Text("Students"),
       ),
       body: getRides.currentRide.value.students.isEmpty
@@ -22,12 +40,11 @@ class _RideStudentsState extends State<RideStudents> {
           : ListView.builder(
               itemCount: getRides.currentRide.value.students.length,
               itemBuilder: (context, i) {
-                var student = getRides.currentRide.value.studentsObjects[i];
-                print(student);
+                var student = UserModel(user:getRides.currentRide.value.studentsObjects[i]);
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    title: Text(student['fullName']),
+                    title: Text(student.fullName),
                     leading: CircleAvatar(
                       radius: 22,
                       child: Icon(

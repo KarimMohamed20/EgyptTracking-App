@@ -36,36 +36,41 @@ class _DriverRidesState extends State<DriverRides> {
         ],
         title: Text("Rides"),
       ),
-      body: Obx(() {
-        if (_getRides.status.value == 'loading') {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (_getRides.status.value == 'empty') {
-          return Center(
-            child: Text('Currently you don\'t have rides.'),
-          );
-        } else {
-          return ListView.builder(
-              itemCount: _getRides.rides.length,
-              itemBuilder: (context, i) {
-                RideModel ride = RideModel(ride: _getRides.rides.value[i]);
-                return InkWell(
-                  onTap: (){
-                    _getRides.currentRide.value = ride;
-                    _getRides.currentRide.refresh();
-                    Get.toNamed("/driver/ride/start");
-                  },
-                  child: RideTile(
-                    helperName: ride.helperName,
-                    live: ride.started,
-                    rideId: ride.id,
-                    rideName: ride.rideName,
-                  ),
-                );
-              });
-        }
-      }),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          _getRides.getMyRides(refresh: true);
+        },
+        child: Obx(() {
+          if (_getRides.status.value == 'loading') {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (_getRides.status.value == 'empty') {
+            return Center(
+              child: Text('Currently you don\'t have rides.'),
+            );
+          } else {
+            return ListView.builder(
+                itemCount: _getRides.rides.length,
+                itemBuilder: (context, i) {
+                  RideModel ride = RideModel(ride: _getRides.rides.value[i]);
+                  return InkWell(
+                    onTap: () {
+                      _getRides.currentRide.value = ride;
+                      _getRides.currentRide.refresh();
+                      Get.toNamed("/driver/ride/start");
+                    },
+                    child: RideTile(
+                      helperName: ride.helperName,
+                      live: ride.started,
+                      rideId: ride.id,
+                      rideName: ride.rideName,
+                    ),
+                  );
+                });
+          }
+        }),
+      ),
     );
   }
 }
