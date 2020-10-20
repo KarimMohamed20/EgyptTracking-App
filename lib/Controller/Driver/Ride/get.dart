@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 class DriverGetRides extends GetxController {
   RxList<dynamic> rides = [].obs;
+  Rx<RideModel> currentRide = RideModel(ride: {}).obs;
   RxString status = 'loading'.obs;
 
   getMyRides() async {

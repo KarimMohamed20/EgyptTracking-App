@@ -50,11 +50,18 @@ class _DriverRidesState extends State<DriverRides> {
               itemCount: _getRides.rides.length,
               itemBuilder: (context, i) {
                 RideModel ride = RideModel(ride: _getRides.rides.value[i]);
-                return RideTile(
-                  helperName: ride.helperName,
-                  live: ride.started,
-                  rideId: ride.id,
-                  rideName: ride.rideName,
+                return InkWell(
+                  onTap: (){
+                    _getRides.currentRide.value = ride;
+                    _getRides.currentRide.refresh();
+                    Get.toNamed("/driver/ride/start");
+                  },
+                  child: RideTile(
+                    helperName: ride.helperName,
+                    live: ride.started,
+                    rideId: ride.id,
+                    rideName: ride.rideName,
+                  ),
                 );
               });
         }

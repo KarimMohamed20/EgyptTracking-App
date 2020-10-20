@@ -3,6 +3,7 @@ import 'package:app/View/Auth/currentLocation.dart';
 import 'package:app/View/Auth/login.dart';
 import 'package:app/View/Driver/Ride/create.dart';
 import 'package:app/View/Driver/Ride/rides.dart';
+import 'package:app/View/Driver/Ride/startRide.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'View/Auth/login.dart';
@@ -37,6 +38,7 @@ class _MyAppState extends State<MyApp> {
         "/driver/home": (context) => DriverHome(),
         "/driver/rides": (context) => DriverRides(),
         "/driver/rides/create": (context) => CreateDriverRide(),
+        "/driver/rides/start": (context) => DriverStartRide(),
       },
     );
   }
