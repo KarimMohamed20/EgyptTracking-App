@@ -1,3 +1,4 @@
+import 'package:app/Controller/Driver/Ride/addStudent.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:app/Controller/Driver/getStudents.dart';
 import 'package:app/Models/User/user.dart';
@@ -18,6 +19,13 @@ class _GetStudentsState extends State<GetStudents> {
     super.initState();
 
     _getStudents.getStudents();
+  }
+
+  removeOrAddStudent(student) async {
+    _getStudents.choosedStudent.value = student;
+    _getStudents.choosedStudent.refresh();
+    await AddStudent().addStudent();
+    _getStudents.getStudents(refresh: true);
   }
 
   @override
@@ -52,9 +60,7 @@ class _GetStudentsState extends State<GetStudents> {
                           padding: const EdgeInsets.all(8.0),
                           child: ListTile(
                             trailing: InkWell(
-                              onTap: (){
-                                
-                              },
+                              onTap: () => removeOrAddStudent(student),
                               child: Icon(
                                 ride.currentRide.value.id ==
                                         student.currentRideId

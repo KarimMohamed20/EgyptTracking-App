@@ -2,7 +2,7 @@ class UserModel {
   Map user;
   String token;
   UserModel({this.user,this.token});
-  String get id => user['id'];
+  String get id => user['_id'];
   String get fullName => user['fullName'];
   String get email => user['email'];
   String get lat => user['lat'];

@@ -8,6 +8,7 @@ class APIServices {
   UserController _userController = Get.find();
 
   Future<http.Response> post(url, {@required body}) async {
+   
     var res = await http.post(url, body: jsonEncode(body), headers: {
       "Content-Type": "application/json",
       "Authorization": _userController.user.value.token

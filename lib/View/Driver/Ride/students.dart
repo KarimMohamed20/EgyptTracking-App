@@ -37,24 +37,26 @@ class _RideStudentsState extends State<RideStudents> {
           ? Center(
               child: Text("There is no students here, you can add students."),
             )
-          : ListView.builder(
-              itemCount: getRides.currentRide.value.students.length,
-              itemBuilder: (context, i) {
-                var student = UserModel(user:getRides.currentRide.value.studentsObjects[i]);
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    title: Text(student.fullName),
-                    leading: CircleAvatar(
-                      radius: 22,
-                      child: Icon(
-                        Icons.person,
-                        size: 22,
+          : Obx(
+                      ()=> ListView.builder(
+                itemCount: getRides.currentRide.value.students.length,
+                itemBuilder: (context, i) {
+                  var student = UserModel(user:getRides.currentRide.value.studentsObjects[i]);
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text(student.fullName),
+                      leading: CircleAvatar(
+                        radius: 22,
+                        child: Icon(
+                          Icons.person,
+                          size: 22,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+          ),
     );
   }
 }

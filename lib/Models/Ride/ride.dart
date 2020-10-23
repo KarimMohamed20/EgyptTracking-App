@@ -4,7 +4,7 @@ class RideModel {
   final Map ride;
   RideModel({this.ride});
 
-  String get id => ride['id'];
+  String get id => ride['_id'];
   String get rideName => ride['rideName'];
   String get helperName => ride['helperName'];
   List get students => ride['students'];
