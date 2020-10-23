@@ -1,3 +1,4 @@
+import 'package:app/Components/Driver/Ride/start.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -61,10 +62,10 @@ class _DriverStartRideState extends State<DriverStartRide> {
       appBar: AppBar(
         actions: [
           InkWell(
-            onTap: (){
+            onTap: () {
               Get.toNamed('/driver/ride/students');
             },
-                      child: Center(
+            child: Center(
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -77,13 +78,21 @@ class _DriverStartRideState extends State<DriverStartRide> {
         title: Text(ride.currentRide.value.rideName),
       ),
       body: Container(
-        child: GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(0.0, 0.0),
-            ),
-            markers: markers,
-            myLocationEnabled: true,
-            onMapCreated: onMapCreated),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(0.0, 0.0),
+                ),
+                markers: markers,
+                myLocationEnabled: true,
+                onMapCreated: onMapCreated),
+            StartRide().startOrEnd('Start Ride', () {
+              print('Start Ride');
+            })
+          ],
+        ),
       ),
     );
   }
