@@ -1,3 +1,4 @@
+import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:app/Controller/Driver/getStudents.dart';
 import 'package:app/Models/User/user.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class GetStudents extends StatefulWidget {
 
 class _GetStudentsState extends State<GetStudents> {
   DriverGetStudents _getStudents = Get.put(DriverGetStudents());
+  DriverGetRides ride = Get.find();
 
   @override
   void initState() {
@@ -42,17 +44,25 @@ class _GetStudentsState extends State<GetStudents> {
                 },
                 child: Obx(
                   () => ListView.builder(
-                    shrinkWrap: true,
+                      shrinkWrap: true,
                       itemCount: _getStudents.students.length,
                       itemBuilder: (context, i) {
                         var student = UserModel(user: _getStudents.students[i]);
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ListTile(
-                            trailing: Icon(
-                              Icons.add,
-                              color: Colors.blue,
-                              size: 28,
+                            trailing: InkWell(
+                              onTap: (){
+                                
+                              },
+                              child: Icon(
+                                ride.currentRide.value.id ==
+                                        student.currentRideId
+                                    ? Icons.remove
+                                    : Icons.add,
+                                color: Colors.blue,
+                                size: 28,
+                              ),
                             ),
                             title: Text(student.fullName),
                             leading: CircleAvatar(
