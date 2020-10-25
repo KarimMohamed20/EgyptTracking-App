@@ -25,13 +25,22 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   GoogleMapController googleMapController;
 
   StreamSubscription<Position> currentLocationStream;
+  Position currentLocationPosition = Position(latitude: 0.0, longitude: 0.0);
 
   listenAndSendLocation() {
     currentLocationStream = getPositionStream(
             desiredAccuracy: LocationAccuracy.high,
             timeLimit: Duration(seconds: 5))
         .listen((Position position) {
-    
+      if (currentLocationPosition.latitude == position.latitude) {
+      } else {
+        googleMapController.moveCamera(CameraUpdate.newLatLng(
+            LatLng(position.latitude, position.longitude)));
+        currentSocket.emit('location',
+            '{"lat":${position.latitude}, "lng":${position.longitude}}');
+        currentLocationPosition = position;
+        setState(() {});
+      }
     });
     setState(() {});
   }
@@ -40,8 +49,8 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   void initState() {
     super.initState();
     addStudentsToMap();
-    listenAndSendLocation();
     connectToSocket();
+    listenAndSendLocation();
   }
 
   @override
@@ -49,6 +58,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     super.dispose();
     googleMapController.dispose();
     currentLocationStream?.cancel();
+    currentSocket.close();
     currentSocket.dispose();
   }
 
@@ -78,6 +88,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
           alignment: Alignment.bottomCenter,
           children: [
             GoogleMap(
+              
                 initialCameraPosition: CameraPosition(
                   target: LatLng(0.0, 0.0),
                 ),
