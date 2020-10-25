@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/Components/Driver/Ride/start.dart';
 import 'package:app/Controller/Driver/Ride/connect.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
@@ -21,10 +23,20 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
+  StreamSubscription<Position> currentLocationStream;
+
+  listenAndSendLocation() {
+    currentLocationStream = getPositionStream().listen((Position position) {
+     print(position.latitude);
+    });
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
     addStudentsToMap();
+    listenAndSendLocation();
     connectToSocket();
   }
 
@@ -32,6 +44,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   void dispose() {
     super.dispose();
     googleMapController.dispose();
+    currentLocationStream.cancel();
   }
 
   @override
