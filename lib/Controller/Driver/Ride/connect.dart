@@ -8,8 +8,8 @@ class DriverConnectRide extends GetxController {
   UserController _userController = Get.find();
   DriverGetRides _getRides = Get.find();
   Rx<IO.Socket> currentSocket = IO.io('').obs;
-  
-  IO.Socket driverConnection() {
+
+  IO.Socket connect() {
     var socket = IO.io(APIConfig.wsRide, <String, dynamic>{
       'path': '/socket.io',
       'transports': ['websocket'],
