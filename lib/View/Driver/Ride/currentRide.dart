@@ -36,6 +36,9 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
       } else {
         await googleMapController.moveCamera(CameraUpdate.newLatLng(
             LatLng(position.latitude, position.longitude)));
+        markers.removeWhere((marker)=> marker.markerId.value == 'myLocation');
+        markers.add(Marker(markerId: MarkerId('myLocation'),
+        position: LatLng(position.latitude,position.longitude)));
         currentSocket.emit('location',
             '{"lat":${position.latitude}, "lng":${position.longitude}}');
         currentLocationPosition = position;
