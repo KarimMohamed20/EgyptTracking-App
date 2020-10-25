@@ -53,7 +53,6 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     super.initState();
     addStudentsToMap();
     connectToSocket();
-    listenAndSendLocation();
   }
 
   @override
@@ -99,6 +98,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
                 myLocationEnabled: true,
                 onMapCreated: onMapCreated),
             StartRideComponents().startOrEnd('End Ride', () {
+              dispose();
               StartRideController().startRide(false);
             })
           ],
@@ -134,14 +134,16 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     setState(() {});
 
     // Move Camera to current location
-    controller.moveCamera(CameraUpdate.newLatLngZoom(
+    await controller.moveCamera(CameraUpdate.newLatLngZoom(
         LatLng(position.latitude, position.longitude), 14));
     // Set Marker on current location
     markers.add(Marker(
       markerId: MarkerId('myLocation'),
       position: LatLng(position.latitude, position.longitude),
     ));
-
     setState(() {});
+
+    // Listen to location changes
+    listenAndSendLocation();
   }
 }
