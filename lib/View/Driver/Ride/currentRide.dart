@@ -18,9 +18,9 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
-  void connectToSocket() {
+  void connectToSocket(double lat,double lng) {
     var socket = DriverConnectRide().driverConnection();
-    socket.emit(ride.currentRide.value.id,'');
+    socket.emit('location','{"lat":$lat, "lng":$lng}');
   }
   @override
   void initState() {
