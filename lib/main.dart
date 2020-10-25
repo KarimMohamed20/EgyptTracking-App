@@ -7,6 +7,7 @@ import 'package:app/View/Driver/Ride/getStudents.dart';
 import 'package:app/View/Driver/Ride/rides.dart';
 import 'package:app/View/Driver/Ride/startRide.dart';
 import 'package:app/View/Driver/Ride/students.dart';
+import 'package:app/View/Student/Ride/currentRide.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'View/Auth/login.dart';
@@ -38,12 +39,13 @@ class _MyAppState extends State<MyApp> {
         "/register": (context) => RegisterPage(),
         "/register/location": (context) => CurrentLocation(),
         "/student/home": (context) => StudentHome(),
+        "/students": (context) => GetStudents(),
+        "/student/ride": (context) => StudentCurrentRide(),
         "/driver/home": (context) => DriverHome(),
         "/driver/rides": (context) => DriverRides(),
         "/driver/rides/create": (context) => CreateDriverRide(),
         "/driver/ride/start": (context) => DriverStartRide(),
         "/driver/ride/students": (context) => RideStudents(),
-        "/students": (context) => GetStudents(),
         "/driver/currentRide": (context) => DriverCurrentRide(),
       },
     );

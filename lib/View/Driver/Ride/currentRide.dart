@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:app/Components/Driver/Ride/start.dart';
 import 'package:app/Controller/Driver/Ride/connect.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
@@ -36,9 +35,10 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
       } else {
         await googleMapController.moveCamera(CameraUpdate.newLatLng(
             LatLng(position.latitude, position.longitude)));
-        markers.removeWhere((marker)=> marker.markerId.value == 'myLocation');
-        markers.add(Marker(markerId: MarkerId('myLocation'),
-        position: LatLng(position.latitude,position.longitude)));
+        markers.removeWhere((marker) => marker.markerId.value == 'myLocation');
+        markers.add(Marker(
+            markerId: MarkerId('myLocation'),
+            position: LatLng(position.latitude, position.longitude)));
         currentSocket.emit('location',
             '{"lat":${position.latitude}, "lng":${position.longitude}}');
         currentLocationPosition = position;
@@ -62,6 +62,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     currentLocationStream?.cancel();
     currentSocket.close();
     currentSocket.dispose();
+    StartRideController().startRide(false);
   }
 
   @override
@@ -90,7 +91,6 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
           alignment: Alignment.bottomCenter,
           children: [
             GoogleMap(
-              
                 initialCameraPosition: CameraPosition(
                   target: LatLng(0.0, 0.0),
                 ),
@@ -99,7 +99,6 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
                 onMapCreated: onMapCreated),
             StartRideComponents().startOrEnd('End Ride', () {
               dispose();
-              StartRideController().startRide(false);
             })
           ],
         ),

@@ -10,6 +10,7 @@ class APIConfig {
   static final students = baseUrl + '/students';
   static final addStudent = baseUrl + '/ride/addStudent';
   static final startRide = baseUrl + '/ride/start';
+  static final getStudentRide = baseUrl + '/ride/student/get';
 
   // Websockets
   static final wsRide = wsUrl + '/ride';
