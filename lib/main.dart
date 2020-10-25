@@ -2,6 +2,7 @@ import 'package:app/Models/User/userController.dart';
 import 'package:app/View/Auth/currentLocation.dart';
 import 'package:app/View/Auth/login.dart';
 import 'package:app/View/Driver/Ride/create.dart';
+import 'package:app/View/Driver/Ride/currentRide.dart';
 import 'package:app/View/Driver/Ride/getStudents.dart';
 import 'package:app/View/Driver/Ride/rides.dart';
 import 'package:app/View/Driver/Ride/startRide.dart';
@@ -43,6 +44,7 @@ class _MyAppState extends State<MyApp> {
         "/driver/ride/start": (context) => DriverStartRide(),
         "/driver/ride/students": (context) => RideStudents(),
         "/students": (context) => GetStudents(),
+        "/driver/currentRide": (context) => DriverCurrentRide(),
       },
     );
   }

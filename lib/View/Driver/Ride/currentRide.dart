@@ -6,49 +6,21 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class DriverStartRide extends StatefulWidget {
+class DriverCurrentRide extends StatefulWidget {
   @override
-  _DriverStartRideState createState() => _DriverStartRideState();
+  _DriverCurrentRideState createState() => _DriverCurrentRideState();
 }
 
-class _DriverStartRideState extends State<DriverStartRide> {
+class _DriverCurrentRideState extends State<DriverCurrentRide> {
   DriverGetRides ride = Get.find();
   Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
-  // Update Map Location to Current User Location
-  onMapCreated(GoogleMapController controller) async {
-    // Get current location
-    Position position =
-        await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-    // Set controller
-    googleMapController = controller;
-    setState(() {});
-
-    // Move Camera to current location
-    controller.moveCamera(CameraUpdate.newLatLngZoom(
-        LatLng(position.latitude, position.longitude), 14));
-    // Set Marker on current location
-    markers.add(Marker(
-      markerId: MarkerId('myLocation'),
-      position: LatLng(position.latitude, position.longitude),
-    ));
-
-    setState(() {});
-  }
 
   @override
   void initState() {
     super.initState();
-    if (ride.currentRide.value.students.isNotEmpty) {
-      markers.addAll(ride.currentRide.value.studentsObjects.map((e) => Marker(
-          markerId: MarkerId(e['id']),
-          infoWindow: InfoWindow(title: 'Student', snippet: e['fullName']),
-          icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-          position: LatLng(double.parse(e['lat']), double.parse(e['lng'])))));
-    }
+    
   }
 
   @override
@@ -89,12 +61,35 @@ class _DriverStartRideState extends State<DriverStartRide> {
                 markers: markers,
                 myLocationEnabled: true,
                 onMapCreated: onMapCreated),
-            StartRideComponents().startOrEnd('Start Ride', () {
-              StartRideController().startRide(true);
+            StartRideComponents().startOrEnd('End Ride', () {
+              StartRideController().startRide(false);
             })
           ],
         ),
       ),
     );
+  }
+
+  
+  // Update Map Location to Current User Location
+  onMapCreated(GoogleMapController controller) async {
+    // Get current location
+    Position position =
+        await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    // Set controller
+    googleMapController = controller;
+    setState(() {});
+
+    // Move Camera to current location
+    controller.moveCamera(CameraUpdate.newLatLngZoom(
+        LatLng(position.latitude, position.longitude), 14));
+    // Set Marker on current location
+    markers.add(Marker(
+      markerId: MarkerId('myLocation'),
+      position: LatLng(position.latitude, position.longitude),
+    ));
+
+    setState(() {});
   }
 }

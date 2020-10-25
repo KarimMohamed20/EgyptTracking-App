@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class StartRide {
+class StartRideComponents {
   startOrEnd(hint,Function onTap) {
     return Padding(
       padding: EdgeInsets.all(65.0),
