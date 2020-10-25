@@ -13,24 +13,19 @@ class DriverCurrentRide extends StatefulWidget {
 }
 
 class _DriverCurrentRideState extends State<DriverCurrentRide> {
-
   // GetX
   DriverConnectRide connectRide = Get.put(DriverConnectRide());
-
 
   // Variables
   DriverGetRides ride = Get.find();
   Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
-  void connectToSocket(double lat,double lng) {
-    connectRide.connect();
-  }
-
   @override
   void initState() {
     super.initState();
     addStudentsToMap();
+    connectToSocket();
   }
 
   @override
@@ -78,6 +73,10 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
         ),
       ),
     );
+  }
+
+  void connectToSocket() {
+    connectRide.connect();
   }
 
   addStudentsToMap() {
