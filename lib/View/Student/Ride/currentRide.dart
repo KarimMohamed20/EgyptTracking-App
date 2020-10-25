@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/Controller/Student/Ride/connect.dart';
 import 'package:app/Controller/Student/Ride/get.dart';
 import 'package:app/Models/User/userController.dart';
@@ -24,7 +26,19 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
   GoogleMapController googleMapController;
 
   listenAndSendLocation() {
-    currentSocket.on(user.user.value.currentRideId, (data) => print(data));
+    currentSocket.on(user.user.value.currentRideId, (data) async {
+      var coordinates = jsonDecode(data);
+
+      await googleMapController.moveCamera(CameraUpdate.newLatLng(
+          LatLng(coordinates['lat'], coordinates['lng'])));
+
+      markers = {
+        Marker(
+            markerId: MarkerId('driver'),
+            position: LatLng(coordinates['lat'], coordinates['lng']))
+      };
+      setState(() {});
+    });
     setState(() {});
   }
 
@@ -93,7 +107,6 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
     currentSocket = StudentConnectRide().connect();
     setState(() {});
   }
-
 
   // Update Map Location to Current User Location
   onMapCreated(GoogleMapController controller) async {
