@@ -31,10 +31,10 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     currentLocationStream = getPositionStream(
             desiredAccuracy: LocationAccuracy.high,
             timeLimit: Duration(seconds: 5))
-        .listen((Position position) {
+        .listen((Position position) async {
       if (currentLocationPosition.latitude == position.latitude) {
       } else {
-        googleMapController.moveCamera(CameraUpdate.newLatLng(
+        await googleMapController.moveCamera(CameraUpdate.newLatLng(
             LatLng(position.latitude, position.longitude)));
         currentSocket.emit('location',
             '{"lat":${position.latitude}, "lng":${position.longitude}}');
