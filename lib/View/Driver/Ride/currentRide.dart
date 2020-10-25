@@ -1,4 +1,5 @@
 import 'package:app/Components/Driver/Ride/start.dart';
+import 'package:app/Controller/Driver/Ride/connect.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:app/Controller/Driver/Ride/start.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +13,19 @@ class DriverCurrentRide extends StatefulWidget {
 }
 
 class _DriverCurrentRideState extends State<DriverCurrentRide> {
+  // Variables
   DriverGetRides ride = Get.find();
   Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
-
+  void connectToSocket() {
+    var socket = DriverConnectRide().driverConnection();
+    socket.emit(ride.currentRide.value.id,'');
+  }
   @override
   void initState() {
     super.initState();
-    
+    addStudentsToMap();
   }
 
   @override
@@ -70,7 +75,17 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     );
   }
 
-  
+  addStudentsToMap() {
+    if (ride.currentRide.value.students.isNotEmpty) {
+      markers.addAll(ride.currentRide.value.studentsObjects.map((e) => Marker(
+          markerId: MarkerId(e['id']),
+          infoWindow: InfoWindow(title: 'Student', snippet: e['fullName']),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
+          position: LatLng(double.parse(e['lat']), double.parse(e['lng'])))));
+    }
+  }
+
   // Update Map Location to Current User Location
   onMapCreated(GoogleMapController controller) async {
     // Get current location

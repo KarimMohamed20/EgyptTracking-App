@@ -6,7 +6,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class DriverConnectRide {
   UserController _userController = Get.find();
-  DriverGetRides getRides = Get.find();
+  DriverGetRides _getRides = Get.find();
 
 
   IO.Socket driverConnection() {
@@ -14,7 +14,7 @@ class DriverConnectRide {
       'path': '/socket.io',
       'transports': ['websocket'],
       'query':
-          'rideId=${getRides.currentRide.value.id}&token=${_userController.user.value.token}'
+          'rideId=${_getRides.currentRide.value.id}&token=${_userController.user.value.token}'
     });
     socket.connect();
     socket.on('connect', (data) => print('Connected as a Driver!'));
