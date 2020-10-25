@@ -58,7 +58,12 @@ class _DriverRidesState extends State<DriverRides> {
                     onTap: () {
                       _getRides.currentRide.value = ride;
                       _getRides.currentRide.refresh();
-                      Get.toNamed("/driver/ride/start");
+
+                      if (ride.started == false) {
+                        Get.toNamed("/driver/ride/start");
+                      } else {
+                        Get.toNamed('/driver/currentRide');
+                      }
                     },
                     child: RideTile(
                       helperName: ride.helperName,

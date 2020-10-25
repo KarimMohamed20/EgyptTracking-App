@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class DriverCurrentRide extends StatefulWidget {
   @override
@@ -15,8 +16,8 @@ class DriverCurrentRide extends StatefulWidget {
 }
 
 class _DriverCurrentRideState extends State<DriverCurrentRide> {
-  // GetX
-  DriverConnectRide connectRide = Get.put(DriverConnectRide());
+  // Socket
+  IO.Socket currentSocket;
 
   // Variables
   DriverGetRides ride = Get.find();
@@ -26,8 +27,11 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   StreamSubscription<Position> currentLocationStream;
 
   listenAndSendLocation() {
-    currentLocationStream = getPositionStream().listen((Position position) {
-     print(position.latitude);
+    currentLocationStream = getPositionStream(
+            desiredAccuracy: LocationAccuracy.high,
+            timeLimit: Duration(seconds: 5))
+        .listen((Position position) {
+    
     });
     setState(() {});
   }
@@ -44,7 +48,8 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   void dispose() {
     super.dispose();
     googleMapController.dispose();
-    currentLocationStream.cancel();
+    currentLocationStream?.cancel();
+    currentSocket.dispose();
   }
 
   @override
@@ -89,7 +94,8 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   }
 
   void connectToSocket() {
-    connectRide.connect();
+    currentSocket = DriverConnectRide().connect();
+    setState(() {});
   }
 
   addStudentsToMap() {
