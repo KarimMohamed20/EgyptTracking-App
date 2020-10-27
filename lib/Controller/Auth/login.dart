@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:app/Controller/API/apiServices.dart';
 import 'package:app/Controller/API/config.dart';
+import 'package:app/Controller/OneSignal/notifications.dart';
 import 'package:app/Models/User/userController.dart';
 import 'package:app/View/Driver/Home/home.dart';
 import 'package:app/View/Student/Home/home.dart';
@@ -44,8 +45,9 @@ class LoginController extends GetxController {
     _handleResponse(res);
   }
 
-
-
+  _connectOneSignal() async {
+    await OneSignalNotifications().connect(emailTextController.text);
+  }
 
   _handleResponse(Response res) async {
     // Invalid User Credentials
@@ -72,11 +74,10 @@ class LoginController extends GetxController {
 
     // Successful Login
     if (res.statusCode == 200) {
-
       user.user.value.user = jsonDecode(res.body)['user'];
       user.user.value.token = jsonDecode(res.body)['token'];
       var prefs = await SharedPreferences.getInstance();
-
+      await _connectOneSignal();
       user.user.refresh();
       // Save credentials
       await prefs.setString('user', jsonEncode(user.user.value.user));

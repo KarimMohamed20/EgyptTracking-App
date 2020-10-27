@@ -15,3 +15,9 @@ class APIConfig {
   // Websockets
   static final wsRide = wsUrl + '/ride';
 }
+
+
+class EnvData {
+  static final String oneSignalAppId = 'd0163195-8ebf-41aa-9922-e6022707b1f5';
+  
+}

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "126585241669",
+    "firebase_url": "https://egypttracking.firebaseio.com",
+    "project_id": "egypttracking",
+    "storage_bucket": "egypttracking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126585241669:android:cfe0fe43269ad45ef4e32c",
+        "android_client_info": {
+          "package_name": "com.flutter.egypttracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126585241669-iprvj75hu73vkiiond2uo9gkdg4uqbg6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutter.egypttracking",
+            "certificate_hash": "2a497e864ef75f5f18f98a0bc6b983cc59cd8a99"
+          }
+        },
+        {
+          "client_id": "126585241669-5fukh2tonelaucs92n58mkhisr44rpni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmcPsVZ3sWXEB26Zk0BnBHN68mivUqCzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126585241669-5fukh2tonelaucs92n58mkhisr44rpni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

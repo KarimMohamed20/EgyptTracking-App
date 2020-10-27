@@ -34,7 +34,8 @@ dependencies:
   get: ^3.13.2
   google_maps_flutter:
   geolocator: ^6.0.0+4
-
+  onesignal_flutter:
+  device_info:
 dev_dependencies:
   flutter_test:
     sdk: flutter
