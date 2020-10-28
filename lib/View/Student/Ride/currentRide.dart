@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:app/Controller/Student/Ride/connect.dart';
 import 'package:app/Controller/Student/Ride/get.dart';
 import 'package:app/Models/User/userController.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -28,16 +26,28 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
   listenAndSendLocation() {
     currentSocket.on(user.user.value.currentRideId, (data) async {
       var coordinates = jsonDecode(data);
+      if (coordinates['type'] == 'end') {
+        Get.defaultDialog(
+            title: 'Your driver ended the ride',
+            middleText: 'You supposed to be at your destination in few minutes',
+            barrierDismissible: false,
+            confirm: FlatButton(
+                onPressed: () {
+                  Get.toNamed("/student/home");
+                  dispose();
+                },
+                child: Text('Go back')));
+      } else {
+        await googleMapController.moveCamera(CameraUpdate.newLatLng(
+            LatLng(coordinates['lat'], coordinates['lng'])));
 
-      await googleMapController.moveCamera(CameraUpdate.newLatLng(
-          LatLng(coordinates['lat'], coordinates['lng'])));
-
-      markers = {
-        Marker(
-            markerId: MarkerId('driver'),
-            position: LatLng(coordinates['lat'], coordinates['lng']))
-      };
-      setState(() {});
+        markers = {
+          Marker(
+              markerId: MarkerId('driver'),
+              position: LatLng(coordinates['lat'], coordinates['lng']))
+        };
+        setState(() {});
+      }
     });
     setState(() {});
   }
@@ -110,21 +120,17 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
 
   // Update Map Location to Current User Location
   onMapCreated(GoogleMapController controller) async {
-    // Get current location
-    Position position =
-        await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
     // Set controller
     googleMapController = controller;
     setState(() {});
 
     // Move Camera to current location
     await controller.moveCamera(CameraUpdate.newLatLngZoom(
-        LatLng(position.latitude, position.longitude), 14));
+        LatLng(ride.ride.value.lastLat, ride.ride.value.lastLng), 14));
     // Set Marker on current location
     markers.add(Marker(
       markerId: MarkerId('driver'),
-      position: LatLng(position.latitude, position.longitude),
+      position: LatLng(ride.ride.value.lastLat, ride.ride.value.lastLng),
     ));
     setState(() {});
 

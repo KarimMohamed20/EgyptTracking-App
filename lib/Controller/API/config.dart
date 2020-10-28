@@ -1,6 +1,6 @@
 class APIConfig {
-  static final baseUrl = 'http://192.168.1.5:3000/api/v1';
-  static final wsUrl = 'ws://192.168.1.5:3000';
+  static final baseUrl = 'http://172.30.14.248:3000/api/v1';
+  static final wsUrl = 'ws://172.30.14.248:3000';
 
   // APIs
   static final login = baseUrl + '/login';

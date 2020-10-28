@@ -36,6 +36,7 @@ dependencies:
   geolocator: ^6.0.0+4
   onesignal_flutter:
   device_info:
+  firebase_core:
 dev_dependencies:
   flutter_test:
     sdk: flutter

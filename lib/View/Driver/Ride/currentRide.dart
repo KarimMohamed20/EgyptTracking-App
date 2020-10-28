@@ -40,7 +40,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
             markerId: MarkerId('myLocation'),
             position: LatLng(position.latitude, position.longitude)));
         currentSocket.emit('location',
-            '{"lat":${position.latitude}, "lng":${position.longitude}}');
+            '{"lat":${position.latitude},"lng":${position.longitude},"type":"location"}');
         currentLocationPosition = position;
         setState(() {});
       }
@@ -58,6 +58,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   @override
   void dispose() {
     super.dispose();
+    currentSocket.emit('location', '{"type":"end"}');
     googleMapController.dispose();
     currentLocationStream?.cancel();
     currentSocket.close();
@@ -98,6 +99,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
                 myLocationEnabled: true,
                 onMapCreated: onMapCreated),
             StartRideComponents().startOrEnd('End Ride', () {
+              currentSocket.emit('location', '{"type":"end"}');
               dispose();
             })
           ],
