@@ -1,3 +1,4 @@
+import 'package:app/Components/Driver/Ride/studentTile.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:app/Models/User/user.dart';
 import 'package:flutter/material.dart';
@@ -43,18 +44,8 @@ class _RideStudentsState extends State<RideStudents> {
                   itemBuilder: (context, i) {
                     var student = UserModel(
                         user: getRides.currentRide.value.studentsObjects[i]);
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Text(student.fullName),
-                        leading: CircleAvatar(
-                          radius: 22,
-                          child: Icon(
-                            Icons.person,
-                            size: 22,
-                          ),
-                        ),
-                      ),
+                    return StudentTile(
+                      student: student,
                     );
                   }),
             ),
