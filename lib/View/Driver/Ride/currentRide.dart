@@ -115,12 +115,17 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
 
   addStudentsToMap() {
     if (ride.currentRide.value.students.isNotEmpty) {
-      markers.addAll(ride.currentRide.value.studentsObjects.map((e) => Marker(
-          markerId: MarkerId(e['id']),
-          infoWindow: InfoWindow(title: 'Student', snippet: e['fullName']),
-          icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-          position: LatLng(double.parse(e['lat']), double.parse(e['lng'])))));
+      markers.addAll(ride.currentRide.value.studentsObjects.map((e) =>
+          e['arrived'] == false
+              ? Marker(
+                  markerId: MarkerId(e['id']),
+                  infoWindow:
+                      InfoWindow(title: 'Student', snippet: e['fullName']),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueYellow),
+                  position:
+                      LatLng(double.parse(e['lat']), double.parse(e['lng'])))
+              : Marker(markerId: MarkerId(e['id']))));
     }
   }
 

@@ -5,7 +5,7 @@ class StudentTile extends StatefulWidget {
   final onCall;
   final arrive;
   final UserModel student;
-  StudentTile({this.onCall, this.arrive, @required this.student});
+  StudentTile({this.onCall, this.arrive, this.student});
   @override
   _StudentTileState createState() => _StudentTileState();
 }
@@ -16,38 +16,66 @@ class _StudentTileState extends State<StudentTile> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListTile(
-        title: Text(student.fullName),
-        subtitle: Icon(Icons.call),
-        trailing: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Container(
-            color: Colors.blue,
-            padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.control_point,
-                  color: Colors.white,
-                  size: 18,
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(student.fullName),
+
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top:5.0),
+              child: Align(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.blue,
+                  ),
+                  child: Icon(
+                    Icons.call,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
-                Text(
-                  ' Arrive',
-                  style: TextStyle(color: Colors.white),
+                alignment: Alignment.centerLeft,
+              ),
+            ),
+            trailing: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.control_point,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                    Text(
+                      ' Arrive',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
                 ),
-              ],
+              ),
+            ),
+            leading: CircleAvatar(
+              radius: 22,
+              child: Icon(
+                Icons.person,
+                size: 22,
+              ),
             ),
           ),
-        ),
-        leading: CircleAvatar(
-          radius: 22,
-          child: Icon(
-            Icons.person,
-            size: 22,
+
+          Divider(
+            height: 0.5,
+            color: Colors.grey[700],
+            thickness: 0.5,
           ),
-        ),
+        ],
       ),
     );
   }
