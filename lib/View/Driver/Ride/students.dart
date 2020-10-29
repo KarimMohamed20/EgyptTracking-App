@@ -1,4 +1,6 @@
 import 'package:app/Components/Driver/Ride/studentTile.dart';
+import 'package:app/Controller/API/apiServices.dart';
+import 'package:app/Controller/Driver/Ride/arrive.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:app/Models/User/user.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +48,7 @@ class _RideStudentsState extends State<RideStudents> {
                         user: getRides.currentRide.value.studentsObjects[i]);
                     return StudentTile(
                       student: student,
+                      arrive: ArriveController().arrive(student.id),
                     );
                   }),
             ),
