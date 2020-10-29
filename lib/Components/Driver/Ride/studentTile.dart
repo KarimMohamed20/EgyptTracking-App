@@ -55,7 +55,7 @@ class _StudentTileState extends State<StudentTile> {
                         size: 18,
                       ),
                       Text(
-                       student.user['arrived'] == false ? ' Add to BUS' : ' Remove from BUS',
+                       student.user['arrived'] == false ? ' Add to bus' : ' Remove from bus',
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
