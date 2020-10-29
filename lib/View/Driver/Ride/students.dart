@@ -48,7 +48,7 @@ class _RideStudentsState extends State<RideStudents> {
                         user: getRides.currentRide.value.studentsObjects[i]);
                     return StudentTile(
                       student: student,
-                      arrive: ArriveController().arrive(student.id),
+                      arrive:() =>ArriveController().arrive(student.user['id']),
                     );
                   }),
             ),

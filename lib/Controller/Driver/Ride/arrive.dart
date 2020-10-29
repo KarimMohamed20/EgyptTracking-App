@@ -14,6 +14,7 @@ class ArriveController {
           '?rideId=${_rideModel.currentRide.value.id}&studentId=$studentId',
       body: {},
     );
+    
     print(res.body);
     _rideModel.currentRide.value = RideModel(ride: jsonDecode(res.body));
     _rideModel.currentRide.refresh();

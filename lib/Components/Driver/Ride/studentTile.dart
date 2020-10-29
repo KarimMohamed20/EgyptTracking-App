@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class StudentTile extends StatefulWidget {
   final onCall;
-  final arrive;
+  final Function arrive;
   final UserModel student;
   StudentTile({this.onCall, this.arrive, this.student});
   @override
@@ -20,9 +20,8 @@ class _StudentTileState extends State<StudentTile> {
         children: [
           ListTile(
             title: Text(student.fullName),
-
             subtitle: Padding(
-              padding: const EdgeInsets.only(top:5.0),
+              padding: const EdgeInsets.only(top: 5.0),
               child: Align(
                 child: Container(
                   padding: EdgeInsets.all(5),
@@ -41,23 +40,26 @@ class _StudentTileState extends State<StudentTile> {
             ),
             trailing: Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Container(
-                color: Colors.blue,
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.control_point,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                    Text(
-                      ' Arrive',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+              child: InkWell(
+                onTap: widget.arrive,
+                child: Container(
+                  color: Colors.blue,
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.control_point,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      Text(
+                       student.user['arrived'] == false ? ' ON BUS' : ' NOT ON BUS',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -69,7 +71,6 @@ class _StudentTileState extends State<StudentTile> {
               ),
             ),
           ),
-
           Divider(
             height: 0.5,
             color: Colors.grey[700],

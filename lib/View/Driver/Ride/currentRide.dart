@@ -20,7 +20,6 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
 
   // Variables
   DriverGetRides ride = Get.find();
-  Set<Marker> markers = {};
   GoogleMapController googleMapController;
 
   StreamSubscription<Position> currentLocationStream;
@@ -35,10 +34,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
       } else {
         await googleMapController.moveCamera(CameraUpdate.newLatLng(
             LatLng(position.latitude, position.longitude)));
-        markers.removeWhere((marker) => marker.markerId.value == 'myLocation');
-        markers.add(Marker(
-            markerId: MarkerId('myLocation'),
-            position: LatLng(position.latitude, position.longitude)));
+
         currentSocket.emit('location',
             '{"lat":${position.latitude},"lng":${position.longitude},"type":"location"}');
         currentLocationPosition = position;
@@ -91,24 +87,26 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
           alignment: Alignment.bottomCenter,
           children: [
             Obx(
-              () => GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(0.0, 0.0),
-                  ),
-                  markers: ride.currentRide.value.studentsObjects
-                      .map((e) => e['arrived'] == false
-                          ? Marker(
-                              markerId: MarkerId(e['id']),
-                              infoWindow: InfoWindow(
-                                  title: 'Student', snippet: e['fullName']),
-                              icon: BitmapDescriptor.defaultMarkerWithHue(
-                                  BitmapDescriptor.hueYellow),
-                              position: LatLng(double.parse(e['lat']),
-                                  double.parse(e['lng'])))
-                          : Marker(markerId: MarkerId(e['id'])))
-                      .toSet(),
-                  myLocationEnabled: true,
-                  onMapCreated: onMapCreated),
+              () {
+                return GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(0.0, 0.0),
+                    ),
+                    markers: ride.currentRide.value.studentsObjects
+                        .map((e) => e['arrived'].toString() == 'false'
+                            ? Marker(
+                                markerId: MarkerId(e['id']),
+                                infoWindow: InfoWindow(
+                                    title: 'Student', snippet: e['fullName']),
+                                icon: BitmapDescriptor.defaultMarkerWithHue(
+                                    BitmapDescriptor.hueYellow),
+                                position: LatLng(double.parse(e['lat']),
+                                    double.parse(e['lng'])))
+                            : Marker(markerId: MarkerId(e['id']),visible: false))
+                        .toSet(),
+                    myLocationEnabled: true,
+                    onMapCreated: onMapCreated);
+              },
             ),
             StartRideComponents().startOrEnd('End Ride', () {
               currentSocket.emit('location', '{"type":"end"}');
@@ -125,7 +123,6 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     setState(() {});
   }
 
-
   // Update Map Location to Current User Location
   onMapCreated(GoogleMapController controller) async {
     // Get current location
@@ -139,11 +136,7 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     // Move Camera to current location
     await controller.moveCamera(CameraUpdate.newLatLngZoom(
         LatLng(position.latitude, position.longitude), 14));
-    // Set Marker on current location
-    markers.add(Marker(
-      markerId: MarkerId('myLocation'),
-      position: LatLng(position.latitude, position.longitude),
-    ));
+
     setState(() {});
 
     // Listen to location changes
