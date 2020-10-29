@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/Controller/API/apiServices.dart';
 import 'package:app/Controller/API/config.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
@@ -13,6 +15,9 @@ class ArriveController {
       body: {},
     );
     print(res.body);
+    _rideModel.currentRide.value = RideModel(ride: jsonDecode(res.body));
+    _rideModel.currentRide.refresh();
+
     return res;
   }
 }

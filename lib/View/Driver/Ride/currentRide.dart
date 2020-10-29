@@ -51,7 +51,6 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
   @override
   void initState() {
     super.initState();
-    addStudentsToMap();
     connectToSocket();
   }
 
@@ -91,13 +90,26 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(0.0, 0.0),
-                ),
-                markers: markers,
-                myLocationEnabled: true,
-                onMapCreated: onMapCreated),
+            Obx(
+              () => GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(0.0, 0.0),
+                  ),
+                  markers: ride.currentRide.value.studentsObjects
+                      .map((e) => e['arrived'] == false
+                          ? Marker(
+                              markerId: MarkerId(e['id']),
+                              infoWindow: InfoWindow(
+                                  title: 'Student', snippet: e['fullName']),
+                              icon: BitmapDescriptor.defaultMarkerWithHue(
+                                  BitmapDescriptor.hueYellow),
+                              position: LatLng(double.parse(e['lat']),
+                                  double.parse(e['lng'])))
+                          : Marker(markerId: MarkerId(e['id'])))
+                      .toSet(),
+                  myLocationEnabled: true,
+                  onMapCreated: onMapCreated),
+            ),
             StartRideComponents().startOrEnd('End Ride', () {
               currentSocket.emit('location', '{"type":"end"}');
               dispose();
@@ -113,21 +125,6 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
     setState(() {});
   }
 
-  addStudentsToMap() {
-    if (ride.currentRide.value.students.isNotEmpty) {
-      markers.addAll(ride.currentRide.value.studentsObjects.map((e) =>
-          e['arrived'] == false
-              ? Marker(
-                  markerId: MarkerId(e['id']),
-                  infoWindow:
-                      InfoWindow(title: 'Student', snippet: e['fullName']),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueYellow),
-                  position:
-                      LatLng(double.parse(e['lat']), double.parse(e['lng'])))
-              : Marker(markerId: MarkerId(e['id']))));
-    }
-  }
 
   // Update Map Location to Current User Location
   onMapCreated(GoogleMapController controller) async {
