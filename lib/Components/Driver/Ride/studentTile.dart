@@ -50,12 +50,12 @@ class _StudentTileState extends State<StudentTile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.control_point,
+                     student.user['arrived'] == false ? Icons.add :   Icons.remove,
                         color: Colors.white,
                         size: 18,
                       ),
                       Text(
-                       student.user['arrived'] == false ? ' ON BUS' : ' NOT ON BUS',
+                       student.user['arrived'] == false ? ' Add to BUS' : ' Remove from BUS',
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
