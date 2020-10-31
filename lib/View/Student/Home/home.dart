@@ -25,11 +25,11 @@ class _HomePageState extends State<StudentHome> {
 
   connectAndListen() {
     currentSocket = StudentConnect().connect();
-    setState(() {
-      
-    });
+    setState(() {});
     currentSocket.on(_userController.user.value.id, (data) {
-      Get.to(CallAlert(callerName: jsonDecode(data)['driverName'], ringtonePath: 'ringtone.mp3'));
+      Get.to(CallAlert(
+          callerName: jsonDecode(data)['driverName'],
+          ringtonePath: 'ringtone.mp3'));
     });
   }
 
