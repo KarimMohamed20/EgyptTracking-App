@@ -23,6 +23,7 @@ class DriverConnectRide {
   }
 
   sendAlert(studentId) async {
+    print('Send Alert');
     var socket = IO.io(APIConfig.wsRide, <String, dynamic>{
       'path': '/socket.io',
       'transports': ['websocket'],
@@ -30,13 +31,13 @@ class DriverConnectRide {
           'rideId=${_getRides.currentRide.value.id}&token=${_userController.user.value.token}'
     });
 
-    socket.emit("alert","{'studentId':$studentId,'driverName':${_userController.user.value.fullName}}");
+    socket.emit("alert",'{"studentId":"$studentId","driverName":"${_userController.user.value.fullName}"}');
     socket.on(
       'disconnect',
       (_) => print('disconnect'),
     );
-    socket.destroy();
-    socket.dispose();
+    // socket.destroy();
+    // socket.dispose();
     return 'Sent Successfully!';
   }
 }
