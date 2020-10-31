@@ -32,7 +32,6 @@ class _TeacherChatState extends State<ChatScreen> {
       messageController.clear();
 
       sendToChat(msg);
-      scrollToEnd();
       _isComposingMessage = false;
     }
   }
@@ -47,6 +46,7 @@ class _TeacherChatState extends State<ChatScreen> {
     currentSocket.on(_chatController.chatId.value, (data) {
       _chatController.messages.add(jsonDecode(data));
       _chatController.messages.refresh();
+      scrollToEnd();
     });
   }
 
