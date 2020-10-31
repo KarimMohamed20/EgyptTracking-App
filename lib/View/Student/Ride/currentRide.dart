@@ -95,7 +95,7 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : Stack(
+                : ride.statusCode.value != 200 ? Center(child: Text("Your ride didn't started yet"),) : Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
                       GoogleMap(
