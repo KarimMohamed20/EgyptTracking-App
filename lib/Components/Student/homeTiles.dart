@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HomeComponents {
-  gridItem(image,title,color) {
+  gridItem(image,title,color,{onTap}) {
     return Expanded(
         child: InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

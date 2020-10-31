@@ -92,7 +92,7 @@ class _HomePageState extends State<StudentHome> {
                       HomeComponents().gridItem('holidays', 'Holiday',
                           Color.fromRGBO(128, 182, 106, 1)),
                       HomeComponents().gridItem('messages', 'Messages',
-                          Color.fromRGBO(249, 168, 37, 1)),
+                          Color.fromRGBO(249, 168, 37, 1),onTap: ()=> Get.toNamed('/student/messages'),),
                       HomeComponents().gridItem(
                           'feeds', 'Feeds', Color.fromRGBO(128, 182, 106, 1))
                     ],
