@@ -21,14 +21,16 @@ class _HomePageState extends State<StudentHome> {
   @override
   void initState() {
     super.initState();
+    connectAndListen();
   }
 
   connectAndListen() {
     currentSocket = StudentConnect().connect();
     setState(() {});
     currentSocket.on(_userController.user.value.id, (data) {
+      print(data.runtimeType);
       Get.to(CallAlert(
-          callerName: jsonDecode(data)['driverName'],
+          callerName: data['driverName'],
           ringtonePath: 'ringtone.mp3'));
     });
   }
