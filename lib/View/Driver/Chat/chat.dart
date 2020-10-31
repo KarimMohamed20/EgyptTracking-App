@@ -30,9 +30,9 @@ class _TeacherChatState extends State<ChatScreen> {
     } else if (msg.isNotEmpty && msg != "") {
       print("Message was sent ✅");
       messageController.clear();
-      scrollToEnd();
 
       sendToChat(msg);
+      scrollToEnd();
       _isComposingMessage = false;
     }
   }
