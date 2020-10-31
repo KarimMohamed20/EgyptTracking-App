@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:app/Components/Student/drawer.dart';
 import 'package:app/Components/Student/homeTiles.dart';
+import 'package:app/Controller/Student/User/websocket.dart';
 import 'package:app/Models/User/userController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_call_alert/in_app_call_alert.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class StudentHome extends StatefulWidget {
   @override
@@ -12,6 +17,22 @@ class StudentHome extends StatefulWidget {
 class _HomePageState extends State<StudentHome> {
   UserController _userController = Get.find();
   List _clicked = List();
+  IO.Socket currentSocket;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  connectAndListen() {
+    currentSocket = StudentConnect().connect();
+    setState(() {
+      
+    });
+    currentSocket.on(_userController.user.value.id, (data) {
+      Get.to(CallAlert(callerName: jsonDecode(data)['driverName'], ringtonePath: 'ringtone.mp3'));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
