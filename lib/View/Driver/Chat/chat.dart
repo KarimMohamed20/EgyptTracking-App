@@ -23,15 +23,15 @@ class _TeacherChatState extends State<ChatScreen> {
   checkNsend() {
     String msg;
     msg = messageController.text.trim();
-
     // Checking TextField.
     if (msg.isEmpty) {
       print('✖ Message wasn\'t sent ✖');
       scrollToEnd();
     } else if (msg.isNotEmpty && msg != "") {
       print("Message was sent ✅");
-      scrollToEnd();
       messageController.clear();
+      scrollToEnd();
+
       sendToChat(msg);
       _isComposingMessage = false;
     }
@@ -40,13 +40,12 @@ class _TeacherChatState extends State<ChatScreen> {
   ScrollController _scrollController = ScrollController();
 
   scrollToEnd() {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 0), curve: Curves.easeOut);
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
   }
 
   listenToChat() {
     currentSocket.on(_chatController.chatId.value, (data) {
-      _chatController.messages.value.add(jsonDecode(data));
+      _chatController.messages.add(jsonDecode(data));
       _chatController.messages.refresh();
     });
   }
@@ -61,6 +60,7 @@ class _TeacherChatState extends State<ChatScreen> {
   void initState() {
     super.initState();
     connectToSocket();
+    
     listenToChat();
   }
 
@@ -81,6 +81,9 @@ class _TeacherChatState extends State<ChatScreen> {
         body: Container(
           child: new Column(
             children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
               Obx(
                 () => new Flexible(
                     child: ListView.builder(
