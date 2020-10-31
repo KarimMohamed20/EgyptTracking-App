@@ -2,7 +2,7 @@ import 'package:app/Models/User/user.dart';
 import 'package:flutter/material.dart';
 
 class StudentTile extends StatefulWidget {
-  final onCall;
+  final Function onCall;
   final Function onArrive;
   final UserModel student;
   StudentTile({this.onCall, this.onArrive, this.student});
@@ -20,22 +20,25 @@ class _StudentTileState extends State<StudentTile> {
         children: [
           ListTile(
             title: Text(student.fullName),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Align(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue,
+            subtitle: InkWell(
+              onTap: widget.onCall,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Align(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue,
+                    ),
+                    child: Icon(
+                      Icons.call,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
-                  child: Icon(
-                    Icons.call,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+                  alignment: Alignment.centerLeft,
                 ),
-                alignment: Alignment.centerLeft,
               ),
             ),
             trailing: Padding(
@@ -50,12 +53,16 @@ class _StudentTileState extends State<StudentTile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                     student.user['arrived'] == false ? Icons.add :   Icons.remove,
+                        student.user['arrived'] == false
+                            ? Icons.add
+                            : Icons.remove,
                         color: Colors.white,
                         size: 18,
                       ),
                       Text(
-                       student.user['arrived'] == false ? ' Add to bus' : ' Remove from bus',
+                        student.user['arrived'] == false
+                            ? ' Add to bus'
+                            : ' Remove from bus',
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
