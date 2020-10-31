@@ -24,6 +24,7 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
   GoogleMapController googleMapController;
 
   listenAndSendLocation() {
+    print(user.user.value.currentRideId);
     currentSocket.on(user.user.value.currentRideId, (data) async {
       var coordinates = jsonDecode(data);
       if (coordinates['type'] == 'end') {

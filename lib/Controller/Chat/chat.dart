@@ -14,6 +14,7 @@ class ChatController extends GetxController {
   RxList messages = [].obs;
   UserController _userController = Get.find();
   getChat() async {
+    
     var res = await APIServices().post(APIConfig.singleChat,
         body: _userController.user.value.accountType == "Student"
             ? {"driverId": studentOrDriverId.value}

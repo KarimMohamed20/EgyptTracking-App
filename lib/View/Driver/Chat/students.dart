@@ -24,8 +24,11 @@ class _GetStudentsState extends State<GetChatStudents> {
     // Student Id
     _chatController.studentOrDriverId.value = studentId;
     _chatController.studentOrDriverId.refresh();
+    Get.dialog(Center(
+      child: CircularProgressIndicator(),
+    ));
     await _chatController.getChat();
-
+    Get.back();
     Get.to(ChatScreen());
   }
 

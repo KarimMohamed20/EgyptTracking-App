@@ -1,4 +1,5 @@
 import 'package:app/Components/Driver/Ride/rideTile.dart';
+import 'package:app/Components/Driver/drawer.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:app/Models/Ride/ride.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,14 @@ class _DriverRidesState extends State<DriverRides> {
   void initState() {
     super.initState();
 
-    _getRides.getMyRides();
+    _getRides.getMyRides(refresh: true);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+                  drawer: DriverDrawer(),
+
       appBar: AppBar(
         actions: [
           InkWell(

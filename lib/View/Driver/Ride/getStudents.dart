@@ -1,7 +1,9 @@
+import 'package:app/Components/Driver/drawer.dart';
 import 'package:app/Controller/Driver/Ride/addStudent.dart';
 import 'package:app/Controller/Driver/Ride/get.dart';
 import 'package:app/Controller/Driver/getStudents.dart';
 import 'package:app/Models/User/user.dart';
+import 'package:app/View/Driver/Ride/rides.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +27,7 @@ class _GetStudentsState extends State<GetStudents> {
     _getStudents.choosedStudent.value = student;
     _getStudents.choosedStudent.refresh();
     await AddStudent().addStudent();
-    _getStudents.getStudents(refresh: true);
+    Get.offAll(DriverRides());
   }
 
   @override
