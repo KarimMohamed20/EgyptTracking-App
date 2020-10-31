@@ -71,7 +71,7 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ride'),
+        title: Text(ride.ride.value.rideName ?? 'Ride'),
       ),
       body: Container(
         child: Obx(
