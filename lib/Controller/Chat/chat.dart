@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 
 class ChatController extends GetxController {
   RxString studentOrDriverId = ''.obs;
+
+  RxString studentChatStatus = 'loading'.obs;
+
   RxString chatId = ''.obs;
   RxList studentChats = [].obs;
   RxList messages = [].obs;
@@ -23,8 +26,11 @@ class ChatController extends GetxController {
   }
 
   getStudentChats() async {
+    studentChatStatus.value = 'loading';
     var res = await APIServices().get(APIConfig.studentChats);
-    studentChats.value = jsonDecode(res.body)['chats'];
+    print(res.body);
+    studentChats.value = jsonDecode(res.body);
     studentChats.refresh();
+    studentChatStatus.value = 'done';
   }
 }
