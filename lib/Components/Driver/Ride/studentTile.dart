@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class StudentTile extends StatefulWidget {
   final onCall;
-  final Function arrive;
+  final Function onArrive;
   final UserModel student;
-  StudentTile({this.onCall, this.arrive, this.student});
+  StudentTile({this.onCall, this.onArrive, this.student});
   @override
   _StudentTileState createState() => _StudentTileState();
 }
@@ -41,7 +41,7 @@ class _StudentTileState extends State<StudentTile> {
             trailing: Padding(
               padding: const EdgeInsets.all(5.0),
               child: InkWell(
-                onTap: widget.arrive,
+                onTap: widget.onArrive,
                 child: Container(
                   color: Colors.blue,
                   padding: EdgeInsets.all(10),
