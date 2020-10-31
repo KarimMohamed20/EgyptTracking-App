@@ -1,6 +1,7 @@
 import 'package:app/Models/User/userController.dart';
 import 'package:app/View/Auth/currentLocation.dart';
 import 'package:app/View/Auth/login.dart';
+import 'package:app/View/Driver/Chat/students.dart';
 import 'package:app/View/Driver/Ride/create.dart';
 import 'package:app/View/Driver/Ride/currentRide.dart';
 import 'package:app/View/Driver/Ride/getStudents.dart';
@@ -47,6 +48,7 @@ class _MyAppState extends State<MyApp> {
         "/driver/ride/start": (context) => DriverStartRide(),
         "/driver/ride/students": (context) => RideStudents(),
         "/driver/currentRide": (context) => DriverCurrentRide(),
+        '/driver/messages': (context) => GetChatStudents()
       },
     );
   }

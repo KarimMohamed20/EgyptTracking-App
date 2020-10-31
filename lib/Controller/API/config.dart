@@ -12,9 +12,12 @@ class APIConfig {
   static final startRide = baseUrl + '/ride/start';
   static final getStudentRide = baseUrl + '/ride/student/get';
   static final arriveStudent = baseUrl + '/ride/arrive';
+  static final singleChat = baseUrl + '/chat/single';
+  static final studentChats = baseUrl + '/chat/student/get';
 
   // Websockets
   static final wsRide = wsUrl + '/ride';
+  static final wsChat = wsUrl + '/chat';
 }
 
 
