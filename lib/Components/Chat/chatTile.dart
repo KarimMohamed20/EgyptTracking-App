@@ -14,95 +14,42 @@ class ChatItem extends StatefulWidget {
 
 class _ChatMessageListItemState extends State<ChatItem> {
   UserController _userController = Get.find();
+  bool get sentByMe => widget.senderId == _userController.user.value.id;
   @override
   Widget build(BuildContext context) {
     return new Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: new Row(
-        children: widget.senderId == _userController.user.value.id
-            ? getSentMessageLayout()
-            : getReceivedMessageLayout(),
+      padding: EdgeInsets.only(
+        top: 0,
+        bottom: 4,
+        left: sentByMe ? 0 : 24,
+        right: sentByMe ? 24 : 0),
+        alignment: sentByMe ? Alignment.centerRight : Alignment.centerLeft,
+        child: Container(
+          margin: sentByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
+          padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
+          decoration: BoxDecoration(
+          borderRadius: sentByMe ? BorderRadius.only(
+            topLeft: Radius.circular(23),
+            topRight: Radius.circular(23),
+            bottomLeft: Radius.circular(23)
+          )
+          :
+          BorderRadius.only(
+            topLeft: Radius.circular(23),
+            topRight: Radius.circular(23),
+            bottomRight: Radius.circular(23)
+          ),
+          color: sentByMe ? Colors.blue : Colors.grey[700],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(widget.message, textAlign: TextAlign.start, style: TextStyle(fontSize: 15.0, color: Colors.white)),
+          ],
+        ),
       ),
     );
   }
 
-  List<Widget> getSentMessageLayout() {
-    return <Widget>[
-      new Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10)),
-                width: MediaQuery.of(context).size.width -
-                    MediaQuery.of(context).size.width / 2.5,
-                padding: EdgeInsets.all(4),
-                child: new Text(widget.message,
-                    style: new TextStyle(
-                      fontSize: 19.5,
-                      color: Colors.white,
-                    )),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              new CircleAvatar(
-                child: Icon(Icons.person,
-                color: Colors.white,),
-                radius: 17,
-                backgroundColor: Colors.blue,
-              )
-            ],
-          ),
-        ),
-      ),
-    ];
-  }
-
-  List<Widget> getReceivedMessageLayout() {
-    return <Widget>[
-      new Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: new Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              new CircleAvatar(
-                child: Icon(Icons.person,color: Colors.white,),
-                radius: 17,
-                backgroundColor: Colors.grey,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width -
-                    MediaQuery.of(context).size.width / 3,
-                decoration: BoxDecoration(
-                    color: Colors.grey[600],
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(4),
-                child: new Text(
-                  widget.message,
-                  style: new TextStyle(
-                    fontSize: 19.5,
-                    color: Colors.white,
-                  ),
-                  maxLines: 99,
-                  overflow: TextOverflow.ellipsis,
-
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    ];
-  }
+  
 }
