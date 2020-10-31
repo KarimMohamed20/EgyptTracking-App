@@ -49,8 +49,9 @@ class _RideStudentsState extends State<RideStudents> {
                         user: getRides.currentRide.value.studentsObjects[i]);
                     return StudentTile(
                       student: student,
-                      onCall: () =>
-                          DriverConnectRide().sendAlert(student.user['id']),
+                      onCall: () {
+                        print('Send Alert');
+                          DriverConnectRide().sendAlert(student.user['id']);},
                       onArrive: () =>
                           ArriveController().arrive(student.user['id']),
                     );
