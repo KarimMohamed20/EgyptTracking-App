@@ -71,21 +71,6 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          InkWell(
-            onTap: () {
-              Get.toNamed('/Student/ride/students');
-            },
-            child: Center(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Students",
-                style: TextStyle(color: Colors.white),
-              ),
-            )),
-          )
-        ],
         title: Text('Ride'),
       ),
       body: Container(
