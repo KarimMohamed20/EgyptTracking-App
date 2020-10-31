@@ -43,6 +43,9 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
 
         markers = {
           Marker(
+              infoWindow: InfoWindow(
+                snippet: ride.ride.value.driver.fullName,
+              ),
               markerId: MarkerId('driver'),
               position: LatLng(coordinates['lat'], coordinates['lng']))
         };
@@ -71,7 +74,7 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ride.ride.value.rideName ?? 'Ride'),
+        title: Text('Ride'),
       ),
       body: Container(
         child: Obx(
@@ -80,18 +83,22 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : ride.statusCode.value != 200 ? Center(child: Text("Your ride didn't started yet"),) : Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      GoogleMap(
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(0.0, 0.0),
-                          ),
-                          markers: markers,
-                          myLocationEnabled: true,
-                          onMapCreated: onMapCreated),
-                    ],
-                  );
+                : ride.statusCode.value != 200
+                    ? Center(
+                        child: Text("Your ride didn't started yet"),
+                      )
+                    : Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          GoogleMap(
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(0.0, 0.0),
+                              ),
+                              markers: markers,
+                              myLocationEnabled: true,
+                              onMapCreated: onMapCreated),
+                        ],
+                      );
           },
         ),
       ),
@@ -114,6 +121,9 @@ class _StudentCurrentRideState extends State<StudentCurrentRide> {
         LatLng(ride.ride.value.lastLat, ride.ride.value.lastLng), 14));
     // Set Marker on current location
     markers.add(Marker(
+      infoWindow: InfoWindow(
+        title: ride.ride.value.driver.fullName
+      ),
       markerId: MarkerId('driver'),
       position: LatLng(ride.ride.value.lastLat, ride.ride.value.lastLng),
     ));
