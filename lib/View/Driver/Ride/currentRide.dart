@@ -96,13 +96,13 @@ class _DriverCurrentRideState extends State<DriverCurrentRide> {
                         .map((e) => e['arrived'].toString() == 'false'
                             ? Marker(
                                 markerId: MarkerId(e['id']),
-                                infoWindow: InfoWindow(
-                                    title: 'Student', snippet: e['fullName']),
+                                infoWindow: InfoWindow(title: e['fullName']),
                                 icon: BitmapDescriptor.defaultMarkerWithHue(
                                     BitmapDescriptor.hueYellow),
                                 position: LatLng(double.parse(e['lat']),
                                     double.parse(e['lng'])))
-                            : Marker(markerId: MarkerId(e['id']),visible: false))
+                            : Marker(
+                                markerId: MarkerId(e['id']), visible: false))
                         .toSet(),
                     myLocationEnabled: true,
                     onMapCreated: onMapCreated);
