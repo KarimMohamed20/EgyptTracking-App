@@ -1,6 +1,6 @@
 class APIConfig {
-  static final baseUrl = 'http://172.30.14.248:3000/api/v1';
-  static final wsUrl = 'ws://172.30.14.248:3000';
+  static final baseUrl = 'http://192.168.1.5:3000/api/v1';
+  static final wsUrl = 'ws://192.168.1.5:3000';
 
   // APIs
   static final login = baseUrl + '/login';
@@ -23,5 +23,10 @@ class APIConfig {
 
 class EnvData {
   static final String oneSignalAppId = 'd0163195-8ebf-41aa-9922-e6022707b1f5';
-  
 }
+
+// typing now
+// chat icon behind message
+// message student/driver from ride
+// ready messages for driver/student
+// share location in chat
